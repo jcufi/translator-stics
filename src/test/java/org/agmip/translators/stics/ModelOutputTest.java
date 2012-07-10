@@ -25,16 +25,20 @@ public class ModelOutputTest {
 
 	@Test
 	public void testFormatLine(){
-		String[] params = new String[] { "wst_name", "w_date", "tmin", "tmax", "srad", "eoaa", "rain", "wind", "vprs", "co2d" };
-		FirstLevelValues values = new FirstLevelValues();
-		values.stationName = "test_wst_name";
-		HashMap map = new HashMap();
+		String[] params = new String[] { "wst_name", "tmin", "tmax", "srad", "eoaa", "rain", "wind", "vprs", "co2d" };
+		
+		String stationName = "test_wst_name";
+		HashMap mapParams = new HashMap();
 		for(String param : params){
-			map.put(param, "test_"+param);
+			mapParams.put(param, "test_"+param);
 		}
+		mapParams.put("w_date", "20120708");
 		
 		//"wst_name", "w_date", "tmin", "tmax", "srad", "eoaa", "rain", "wind", "vprs", "co2d"
-		//formatLine(FirstLevelValues firstLevel, Map<String, Object> weatherRecord) ;
+		String resultLine = output.formatLine(stationName,  mapParams) ;
+		System.out.println("result line : "+resultLine);
+		System.out.println("expected    : "+"test_wst_name 2012 07 08 190 test_tmin test_tmax test_srad test_eoaa test_rain test_wind test_vprs test_co2d");
+		assertEquals("test_wst_name 2012 07 08 190 test_tmin test_tmax test_srad test_eoaa test_rain test_wind test_vprs test_co2d", resultLine);
 	}
 	
 	@Test

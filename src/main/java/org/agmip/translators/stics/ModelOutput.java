@@ -72,34 +72,39 @@ public class ModelOutput implements TranslatorOutput {
 	 *            data corresponding to a weather record
 	 * @return a line of stics weather file
 	 */
-	public String formatLine(FirstLevelValues firstLevel, Map<String, Object> weatherRecord) {
-		String[] parametersName = new String[] { "wst_name", "w_date", "tmin", "tmax", "srad", "eoaa", "rain", "wind", "vprs", "co2d" };
+	public String formatLine(String stationName, Map<String, Object> weatherRecord) {
+		String[] params = new String[] { "w_date", "tmin", "tmax", "srad", "eoaa", "rain", "wind", "vprs", "co2d" };
 		StringBuffer buffer = new StringBuffer();
-		Date result;
+		SimpleDateFormat srcDateFormat;
+		SimpleDateFormat newDateFormat;
+		Date dateResult;
+		String separator;
 		int julianDay;
-		result = null;
+		dateResult = null;
 		julianDay = 0;
-		for (String param : parametersName) {
-			if ("w_ date".equals(parametersName)) {
-				// First the date
-				SimpleDateFormat format = new SimpleDateFormat("mmmm dd yy");
+
+		buffer.append(stationName);
+		buffer.append(WEATHER_DATA_SEPARATOR);
+		for (int i = 0; i < params.length; i++) {
+			separator = (i == params.length - 1 ? "" : WEATHER_DATA_SEPARATOR);
+			if ("w_date".equals(params[i])) {
+				// First write date in stics format
+				srcDateFormat = new SimpleDateFormat("yyyyMMdd");
+				newDateFormat = new SimpleDateFormat("yyyy MM dd");
 				try {
-					result = format.parse((String) weatherRecord.get(param));
-					buffer.append(result.toString());
-					buffer.append(WEATHER_DATA_SEPARATOR);
+					dateResult = srcDateFormat.parse((String) weatherRecord.get(params[i]));
+					buffer.append(newDateFormat.format(dateResult) + separator);
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
 				// Write julian day
-				julianDay = getJulianDay(result);
-				buffer.append(julianDay);
-				buffer.append(WEATHER_DATA_SEPARATOR);
-
+				julianDay = getJulianDay(dateResult);
+				buffer.append(julianDay + separator);
 			} else {
-				buffer.append(weatherRecord.get(param));
-				buffer.append(WEATHER_DATA_SEPARATOR);
+				buffer.append((weatherRecord.get(params[i]) + separator));
 			}
 		}
+		// Return the line and remove the last trailing extra space
 		return buffer.toString();
 	}
 
@@ -117,19 +122,22 @@ public class ModelOutput implements TranslatorOutput {
 	}
 
 	public void writeFile(String filePath, Map data) {
+		List<Map<String, Object>> weatherRecords;
+		List<Map<String, Object>> negativeDefault;
+		List<Map<String, Object>> zeroDefault;
+		List<Map<String, Object>> dateDefault;
+
 		BufferedWriter writer;
+		String stationName;
 		try {
-			FirstLevelValues firstLevel = new FirstLevelValues();
-			// Extract first level values
-			firstLevel.stationName = (String) getValueOr(data, "wsta_name", STATION_NAME);
-			firstLevel.latitude = (String) getValueOr(data, "wsta_lat", ZERO_VALUE);
-			firstLevel.altitude = (String) getValueOr(data, "elev", ZERO_VALUE);
+			// Extract station name first
+			stationName = (String) getValueOr(data, "wsta_name", STATION_NAME);
 
 			// Extract weather values
-			List<Map<String, Object>> weatherRecords = getValueOr(data, "weather", new ArrayList<Map<String, Object>>());
-			List<Map<String, Object>> negativeDefault = extractFromList(weatherRecords, new String[] { "tmin", "tmax", "eoaa", "vprs", "co2d", "srad", "rain", "wind" }, NEGATIVE_VALUE);
-			List<Map<String, Object>> zeroDefault = extractFromList(weatherRecords, new String[] { "elev" }, ZERO_VALUE);
-			List<Map<String, Object>> dateDefault = extractFromList(weatherRecords, new String[] { "w_date" }, DATE_VALUE);
+			weatherRecords = getValueOr(data, "weather", new ArrayList<Map<String, Object>>());
+			negativeDefault = extractFromList(weatherRecords, new String[] { "tmin", "tmax", "eoaa", "vprs", "co2d", "srad", "rain", "wind" }, NEGATIVE_VALUE);
+			zeroDefault = extractFromList(weatherRecords, new String[] { "elev" }, ZERO_VALUE);
+			dateDefault = extractFromList(weatherRecords, new String[] { "w_date" }, DATE_VALUE);
 			LinkedList<List<Map<String, Object>>> listOfDefaultList = new LinkedList<List<Map<String, Object>>>();
 			listOfDefaultList.push(negativeDefault);
 			listOfDefaultList.push(zeroDefault);
@@ -148,7 +156,7 @@ public class ModelOutput implements TranslatorOutput {
 			StringBuffer weatherRecordBuffer = new StringBuffer();
 			int count = 0;
 			for (Map<String, Object> record : mergedWeatherRecords) {
-				weatherRecordBuffer.append(formatLine(firstLevel, record));
+				weatherRecordBuffer.append(formatLine(stationName, record));
 				weatherRecordBuffer.append(NEW_LINE);
 				if (count % 100 == 0) {
 					writer.write(weatherRecordBuffer.toString());
