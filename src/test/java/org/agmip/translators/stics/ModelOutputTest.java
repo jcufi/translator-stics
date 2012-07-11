@@ -49,7 +49,7 @@ public class ModelOutputTest {
 		String resultLine = output.formatLine(stationName, mapParams);
 		System.out.println("result line : " + resultLine);
 		System.out.println("expected    : " + "test_wst_name 2012 07 08 190 test_tmin test_tmax test_srad test_eoaa test_rain test_wind test_vprs test_co2d");
-		assertEquals("test_wst_name 2012 07 08 190 test_tmin test_tmax test_srad test_eoaa test_rain test_wind test_vprs test_co2d", resultLine);
+		assertEquals("test_wst_name 2012 07 08 190 test_tmin test_tmax test_srad test_eoaa test_rain requires-convertion requires-convertion test_co2d", resultLine);
 	}
 	@Test
 	public void testGetJulianDay() throws ParseException {
