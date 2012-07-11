@@ -1,16 +1,11 @@
 package org.agmip.translators.stics;
 
-import static org.agmip.util.MapUtil.extractFromList;
 import static org.agmip.util.MapUtil.getValueOr;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.agmip.core.types.TranslatorOutput;
-import org.agmip.util.JSONAdapter;
+import org.agmip.util.MapUtil;
+import org.agmip.util.MapUtil.BucketEntry;
 
 public class ModelOutput implements TranslatorOutput {
 
@@ -32,37 +28,6 @@ public class ModelOutput implements TranslatorOutput {
 	public static String NEW_LINE = "\n";
 	public static String CLIMATIC_FILENAME = "a.tmp";
 
-	public static void main(String[] args) {
-		ModelOutput modelOutput;
-		modelOutput = new ModelOutput();
-		try {
-			Map jsonMap = JSONAdapter.fromJSON(getDataFromTestFile("ufga8201_mzx.json"));
-			modelOutput.writeFile("", jsonMap);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Return a string containing the data file
-	 * 
-	 * @param file
-	 * @return a string containing the data file
-	 */
-	public static String getDataFromTestFile(String file) {
-		InputStream inputStream = ModelOutput.class.getResourceAsStream(file);
-		BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream));
-		StringBuffer strBuffer = new StringBuffer();
-		try {
-			while (buffer.ready()) {
-				strBuffer.append(buffer.readLine());
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return strBuffer.toString();
-	}
-
 	/**
 	 * Format one line of stics weather file
 	 * 
@@ -72,8 +37,8 @@ public class ModelOutput implements TranslatorOutput {
 	 *            data corresponding to a weather record
 	 * @return a line of stics weather file
 	 */
-	public String formatLine(String stationName, Map<String, Object> weatherRecord) {
-		String[] params = new String[] { "w_date", "tmin", "tmax", "srad", "eoaa", "rain", "wind", "vprs", "co2d" };
+	public String formatLine(String stationName, Map<String, String> weatherRecord) {
+		String[] params = new String[] {"w_date", "tmin", "tmax", "srad", "eoaa", "rain", "wind", "vprs", "co2d" };
 		StringBuffer buffer = new StringBuffer();
 		SimpleDateFormat srcDateFormat;
 		SimpleDateFormat newDateFormat;
@@ -86,7 +51,7 @@ public class ModelOutput implements TranslatorOutput {
 		buffer.append(stationName);
 		buffer.append(WEATHER_DATA_SEPARATOR);
 		for (int i = 0; i < params.length; i++) {
-			separator = (i == params.length - 1 ? "" : WEATHER_DATA_SEPARATOR);
+			separator = ((i == params.length - 1) ? "" : WEATHER_DATA_SEPARATOR);
 			if ("w_date".equals(params[i])) {
 				// First write date in stics format
 				srcDateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -94,7 +59,7 @@ public class ModelOutput implements TranslatorOutput {
 				try {
 					dateResult = srcDateFormat.parse((String) weatherRecord.get(params[i]));
 					buffer.append(newDateFormat.format(dateResult) + separator);
-				} catch (ParseException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				// Write julian day
@@ -121,50 +86,57 @@ public class ModelOutput implements TranslatorOutput {
 		return calendar.get(GregorianCalendar.DAY_OF_YEAR);
 	}
 
-	public void writeFile(String filePath, Map data) {
-		List<Map<String, Object>> weatherRecords;
-		List<Map<String, Object>> negativeDefault;
-		List<Map<String, Object>> zeroDefault;
-		List<Map<String, Object>> dateDefault;
+	/**
+	 * Return a new LinkedList filled with values taken from the input
+	 * parameters
+	 * 
+	 * @param listOfDefaultList
+	 *            A list of list to merge
+	 * @return a new LinkedList filled with values taken from the input
+	 *         parameters
+	 */
+	public LinkedList<Map<String, Object>> mergeList(LinkedList<List<Map<String, Object>>> listOfDefaultList) {
+		// Merge all previous default values list
+		LinkedList<Map<String, Object>> mergedWeatherRecords;
+		mergedWeatherRecords = new LinkedList<Map<String, Object>>();
+		for (List<Map<String, Object>> list : listOfDefaultList) {
+			for (Map<String, Object> m : list) {
+				mergedWeatherRecords.add(m);
+			}
+		}
+		return mergedWeatherRecords;
+	}
 
+	/**
+	 * Main method for the converter
+	 */
+	public void writeFile(String filePath, Map data) {
+		ArrayList<BucketEntry> weatherRecords;
 		BufferedWriter writer;
 		String stationName;
 		try {
 			// Extract station name first
-			stationName = (String) getValueOr(data, "wsta_name", STATION_NAME);
-
+			stationName = getValueOr(data, "wst_name", STATION_NAME);
 			// Extract weather values
-			weatherRecords = getValueOr(data, "weather", new ArrayList<Map<String, Object>>());
-			negativeDefault = extractFromList(weatherRecords, new String[] { "tmin", "tmax", "eoaa", "vprs", "co2d", "srad", "rain", "wind" }, NEGATIVE_VALUE);
-			zeroDefault = extractFromList(weatherRecords, new String[] { "elev" }, ZERO_VALUE);
-			dateDefault = extractFromList(weatherRecords, new String[] { "w_date" }, DATE_VALUE);
-			LinkedList<List<Map<String, Object>>> listOfDefaultList = new LinkedList<List<Map<String, Object>>>();
-			listOfDefaultList.push(negativeDefault);
-			listOfDefaultList.push(zeroDefault);
-			listOfDefaultList.push(dateDefault);
-
-			// Merge all previous default values list
-			LinkedList<Map<String, Object>> mergedWeatherRecords;
-			mergedWeatherRecords = new LinkedList<Map<String, Object>>();
-			for (List<Map<String, Object>> list : listOfDefaultList) {
-				for (Map<String, Object> m : list) {
-					mergedWeatherRecords.add(m);
-				}
-			}
-			// Write the file
+			weatherRecords = MapUtil.getBucket(data, "weather");
+			// Write values
 			writer = new BufferedWriter(new FileWriter(new File(CLIMATIC_FILENAME)));
 			StringBuffer weatherRecordBuffer = new StringBuffer();
-			int count = 0;
-			for (Map<String, Object> record : mergedWeatherRecords) {
-				weatherRecordBuffer.append(formatLine(stationName, record));
-				weatherRecordBuffer.append(NEW_LINE);
+			int count = 1;
+			for (BucketEntry bucket : weatherRecords) {
+				for (Map<String, String> record : bucket.getDataList()) {
+					weatherRecordBuffer.append(formatLine(stationName, record));
+					weatherRecordBuffer.append(NEW_LINE);
+				}
 				if (count % 100 == 0) {
+					System.out.println(weatherRecordBuffer.toString());
 					writer.write(weatherRecordBuffer.toString());
 					weatherRecordBuffer = new StringBuffer();
 				}
 				count++;
 			}
 			// Last write
+			System.out.println(weatherRecordBuffer.toString());
 			writer.write(weatherRecordBuffer.toString());
 			writer.close();
 		} catch (IOException e) {
