@@ -1,0 +1,41 @@
+{"soil": [
+        {
+            "soil_id": "IBSB910015",
+            "sl_source": "SCS",
+            "sltx": "S",
+            "sldp": "180",
+            "soil_name": "Millhopper Fine Sand",
+            "sl_notes": "AgMIP soil file",
+            "sl_loc_3": "Gainesville",
+            "sl_loc_1": "USA",
+            "soil_lat": "29.63",
+            "soil_long": "-82.37",
+            "classification": "Loamy,silic,hyperth Gross. Paleudults",
+            "salb": ".18",
+            "slu1": "5",
+            "sldr": ".5",
+            "slro": "66",
+            "slnf": "1",
+            "slpf": ".92",
+            "smhb": "IB001",
+            "smpx": "IB001",
+            "smke": "IB001",
+            "data": [
+                {
+                    "sllb": "5",
+                    "slll": ".023",
+                    "sldul": ".086",
+                    "slsat": ".23",
+                    "slrgf": "1",
+                    "sksat": "7.4",
+                    "slbdm": "1.36",
+                    "sloc": ".9",
+                    "slcly": ".9",
+                    "slsil": "11.8",
+                    "slphw": "5.3"
+                }
+             ]
+        }
+        ]
+}
+        

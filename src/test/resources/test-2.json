@@ -1,0 +1,33 @@
+{"weather":[
+
+    {
+        "wst_name":"Gainesville,Florida,USA",
+        "wst_insi":"UFGA",
+        "wst_lat":"29.630",
+        "wst_long":"-82.370",
+        "elev":"10",
+        "tav":"20.9",
+        "tamp":"7.5",
+        "refht":"2.00",
+        "wndht":"3.00",
+        "data":[
+            {
+                "w_date":"19820101",
+                "srad":"5.9",
+                "tmax":"24.4",
+                "tmin":"15.6",
+                "rain":"19.0",
+                "pard":"12.4"
+            },
+            {
+                "w_date":"19820203",
+                "srad":"5.9",
+                "tmax":"25",
+                "tmin":"15.6",
+                "rain":"19.0",
+                "pard":"12.4"
+            }
+        ]
+    }
+]
+}

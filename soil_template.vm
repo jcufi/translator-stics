@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<sols>
+	<sol nom="$SOIL_ID">
+		<param nom="argi">$clay</param>
+		<param nom="norg">$saoc</param>
+		<param nom="profhum">22.0000</param>
+		<param nom="calc">$caco3</param>
+		<param nom="pH">$slphw</param>
+		<param nom="concseuil">0.0000</param>
+		<param nom="albedo">$salb</param>
+		<param nom="q0">6.0000</param>
+		<param nom="ruisolnu">0.0000</param>
+		<param nom="obstarac">200.0000</param>
+		<param nom="pluiebat">50.0000</param>
+		<param nom="mulchbat">0.5000</param>
+		<param format="real" max="150" min="10" nom="zesx">60.0000</param>
+		<param format="real" max="4" min="-4" nom="cfes">5.0000</param>
+		<param format="real" max="0.2" min="0.01" nom="z0solnu">0.0100</param>
+		<option choix="2" nom="cailloux" nomParam="codecailloux">
+			<choix code="1" nom="oui" />
+			<choix code="2" nom="non" />
+		</option>
+		<option choix="2" nom="macro-porosit&eacute;" nomParam="codemacropor">
+			<choix code="1" nom="oui" />
+			<choix code="2" nom="non" />
+		</option>
+		<option choix="2" nom="Sol gonflant" nomParam="codefente">
+			<choix code="1" nom="oui" />
+			<choix code="2" nom="non" />
+		</option>
+		<option choix="2" nom="drainage" nomParam="codrainage">
+			<choix code="1" nom="oui">
+				<param nom="profimper">10.0000</param>
+				<param nom="ecartdrain">0.0000</param>
+				<param nom="ksol">0.0000</param>
+				<param nom="profdrain">0.0000</param>
+			</choix>
+			<choix code="2" nom="non" />
+		</option>
+		<option choix="2" nom="remont&eacute;es capillaires" nomParam="coderemontcap">
+			<choix code="1" nom="oui">
+				<param nom="capiljour">1.0000</param>
+				<param nom="humcapil">10.0000</param>
+			</choix>
+			<choix code="2" nom="non" />
+		</option>
+		<option choix="2" nom="nitrification" nomParam="codenitrif">
+			<choix code="1" nom="oui" />
+			<choix code="2" nom="non" />
+		</option>
+		<option choix="2" nom="d&eacute;nitrification" nomParam="codedenit">
+			<choix code="1" nom="oui">
+				<param nom="profdenit">20</param>
+				<param nom="vpotdenit">16.0000</param>
+			</choix>
+			<choix code="2" nom="non" />
+		</option>
+		<tableau_entete nb_colonnes="8">
+			<colonne nom="epc" />
+			<colonne nom="HCCF" />
+			<colonne nom="HMINF" />
+			<colonne nom="DAF" />
+			<colonne nom="cailloux" />
+			<colonne nom="typecailloux" />
+			<colonne nom="infil" />
+			<colonne nom="epd" />
+		</tableau_entete>
+		#foreach( $soilMap in $listOfMaps )
+		<tableau nb_colonnes="8" nom="horizon 1">
+			<colonne nom="epc">$soilMap.sllb</colonne>
+			<colonne nom="HCCF">$soilMap.sldul</colonne>
+			<colonne nom="HMINF">$soilMap.slll</colonne>
+			<colonne nom="DAF">$soilMap.slbdm</colonne>
+			<colonne nom="cailloux">0.00</colonne>
+			<colonne nom="typecailloux">1</colonne>
+			<colonne nom="infil">$soilMap.sksat</colonne>
+			<colonne nom="epd">10</colonne>
+		</tableau>
+		#end
+	</sol>
+</sols>
