@@ -1,3 +1,0 @@
-#translator-stics#
-
-TODO

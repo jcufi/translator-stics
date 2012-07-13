@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <sols>
-	<sol nom="$SOIL_ID">
-		<param nom="argi">$clay</param>
-		<param nom="norg">$saoc</param>
+	<sol nom="$firstLevelFields.soil_id">
+		<param nom="argi">$firstLevelFields.clay</param>
+		<param nom="norg">$firstLevelFields.sloc</param>
 		<param nom="profhum">22.0000</param>
-		<param nom="calc">$caco3</param>
-		<param nom="pH">$slphw</param>
+		<param nom="calc">$firstLevelFields.caco3</param>
+		<param nom="pH">$firstLevelFields.slphw</param>
 		<param nom="concseuil">0.0000</param>
-		<param nom="albedo">$salb</param>
+		<param nom="albedo">$firstLevelFields.salb</param>
 		<param nom="q0">6.0000</param>
 		<param nom="ruisolnu">0.0000</param>
 		<param nom="obstarac">200.0000</param>
