@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<usms>
+	<usm nom="EID">
+		<datedebut>$SDATE</datedebut>
+		<datefin>$SDATE</datefin>
+		<finit>$EID_ini.xml</finit>
+		<nomsol>$SOIL_ID</nomsol>
+		<fstation>$WSTA_sta.xml</fstation>
+		<fclim1>$WSTA.yyyy</fclim1>
+		<fclim2>$WSTA.yyyy</fclim2>
+		<culturean>0</culturean>
+		<nbplantes>1</nbplantes>
+		<codesimul>0</codesimul>
+		<plante dominance="1">
+			<fplt>$CO_plt.xml</fplt>
+			<ftec>$EXNAME_tec.xml</ftec>
+			<flai>ble.lai</flai>
+		</plante>
+		<plante dominance="2">
+			<fplt>null</fplt>
+			<ftec>null</ftec>
+			<flai>null</flai>
+		</plante>
+	</usm>
+</usms>

@@ -1,0 +1,78 @@
+ {
+ "management": {
+
+				 "events": [
+				 		{
+				            "event": "fertilizer",
+				            "date": "20000101",
+				            "fecd": "FE001",
+				            "feacd": "AP001",
+				            "fedep": "10",
+				            "feamp": "0",
+				            "feamk": "0",
+				            "feamc": "0",
+				            "feamo": "0",
+				            "feamn": "35"
+				        },
+				 		{
+				            "event": "fertilizer",
+				            "date": "19820101",
+				            "fecd": "FE001",
+				            "feacd": "AP001",
+				            "fedep": "10",
+				            "feamp": "0",
+				            "feamk": "0",
+				            "feamc": "0",
+				            "feamo": "0",
+				            "feamn": "35"
+				        },
+				        {
+				            "event": "fertilizer",
+				            "date": "19820201",
+				            "fecd": "FE001",
+				            "feacd": "AP001",
+				            "fedep": "10",
+				            "feamp": "0",
+				            "feamk": "0",
+				            "feamc": "0",
+				            "feamo": "0",
+				            "feamn": "54"
+				        },
+				        {
+				            "event": "fertilizer",
+				            "date": "19820110",
+				            "fecd": "FE001",
+				            "feacd": "AP001",
+				            "fedep": "10",
+				            "feamp": "0",
+				            "feamk": "0",
+				            "feamc": "0",
+				            "feamo": "0",
+				            "feamn": "54"
+				        },
+				         {
+				            "event": "fertilizer",
+				            "date": "19820105",
+				            "fecd": "FE001",
+				            "feacd": "AP001",
+				            "fedep": "10",
+				            "feamp": "0",
+				            "feamk": "0",
+				            "feamc": "0",
+				            "feamo": "0",
+				            "feamn": "54"
+				        },
+				        {
+				            "event": "fertilizer",
+				            "date": "19820105",
+				            "fecd": "FE001",
+				            "feacd": "AP001",
+				            "fedep": "10",
+				            "feamp": "0",
+				            "feamk": "0",
+				            "feamc": "0",
+				            "feamo": "0",
+				            "feamn": "54"
+				        }	]
+				}
+}

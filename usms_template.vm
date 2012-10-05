@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<usms>
+    <usm nom="$exname">
+        <datedebut>$icdat</datedebut>
+        <datefin>$dateFin</datefin>
+        <finit>$init_file</finit>
+        <nomsol>$soil_id</nomsol>
+        <fstation>$station_file</fstation>
+        <!-- iterer sur le nombre de fichier climat -->
+        #foreach($climFileName in $clim_files)
+        <fclim$foreach.count>$climFileName</fclim$foreach.count>
+        #end
+        <!-- si c'est sur 1 ans alors culturean = 1 sinon 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>$plant_file</fplt>
+            <ftec>$tec_file</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+</usms>

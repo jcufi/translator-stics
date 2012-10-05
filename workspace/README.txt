@@ -1,0 +1,31 @@
+***********************
+Stics translator report
+***********************
+For some parameters default values has been used : 
+wst_name=unknown-default-value
+w_date=20110101
+tmin=-999.0
+tmax=-999.0
+srad=-999.0
+eoaa=-999.0
+rain=-999.0
+wind=-999.0
+vprs=-999.0
+co2d=-999.0
+refht=2.0
+fl_lat=0.0
+flele=0.0
+anga=0.18
+angb=0.62
+sksat=0.0
+salb=0.25
+slll=0.0
+sloc=0.1
+ich2o=0.0
+icnh4=0.0
+icno3=0.0
+soil_id=unknown-default-value
+plrs=0
+ireff=1
+fedep=5	
+tidep=30

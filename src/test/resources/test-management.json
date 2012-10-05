@@ -1,0 +1,111 @@
+{"initial_condition": {
+
+    "icpcr": "MZ",
+    "icdat": "19820225",
+    "icrt": "100",
+    "icnd": "0",
+    "icrz#": "1",
+    "icrze": "1",
+    "icrag": "1000",
+    "icrn": ".8",
+    "icrp": "0",
+    "icrip": "100",
+    "icrdp": "15"
+},
+"management": {
+
+    "events": [
+        {
+            "date": "19820226",
+            "event": "planting",
+            "crid": "MZ",
+            "cul_name": "McCurdy 84aa",
+            "pldae": "",
+            "plpop": "7.2",
+            "plpoe": "7.2",
+            "plme": "S",
+            "plds": "R",
+            "plrs": "61",
+            "plrd": "0",
+            "pldp": "7",
+            "plspl": "0"
+        },
+        {
+            "event": "irrigation",
+            "date": "19820304",
+            "irop": "IR001",
+            "irval": "13",
+            "ireff": "1"
+        },
+        {
+            "event": "fertilizer",
+            "date": "19820407",
+            "fecd": "FE001",
+            "feacd": "AP001",
+            "fedep": "10",
+            "feamp": "0",
+            "feamk": "0",
+            "feamc": "0",
+            "feamo": "0",
+            "feamn": "27"
+        },
+        {
+            "event": "fertilizer",
+            "date": "19820412",
+            "fecd": "FE001",
+            "feacd": "AP001",
+            "fedep": "10",
+            "feamp": "0",
+            "feamk": "0",
+            "feamc": "0",
+            "feamo": "0",
+            "feamn": "35"
+        },
+        {
+            "event": "fertilizer",
+            "date": "19820517",
+            "fecd": "FE001",
+            "feacd": "AP001",
+            "fedep": "10",
+            "feamp": "0",
+            "feamk": "0",
+            "feamc": "0",
+            "feamo": "0",
+            "feamn": "54"
+        },
+        {
+            "event": "organic_matter",
+            "date": "19780615",
+            "omcd": "IB001",
+            "omamt": "1000",
+            "omn%": "0.8",
+            "omdep": "15"
+        },
+        {
+            "event": "chemical",
+            "date": "19790425",
+            "chcd": "CH051",
+            "chamt": "0",
+            "chacd": "AP006",
+            "chdep": "10",
+            "ch_targets": "WEEDS"
+        },
+        {
+            "event": "tillage",
+            "date": "19780614",
+            "tiimp": "TI003",
+            "tidep": "35",
+            "ti_name": "Moldboard plow"
+        },
+        {
+            "event": "harvest",
+            "harm" : "HM002",
+            "date": "19800225",
+            "hastg": "6",
+            "hacom": "H",
+            "hasiz": "A",
+            "hapc": "100"
+        }
+    ]
+}
+}

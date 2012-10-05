@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<usms>
+    <usm nom="UFGA8201MZ">
+        <datedebut>56</datedebut>
+        <datefin>421</datefin>
+        <finit>IBMZ910014_ini.xml</finit>
+        <nomsol>IBMZ910014</nomsol>
+        <fstation>Gainesville_sta.xml</fstation>
+        <!-- iterer sur le nombre de fichier climat -->
+                <fclim1>C:\jucufi-local\workspaceAgmip\translator-stics\workspace\Gainesville.1982</fclim1>
+                <!-- si c'est sur 1 ans alors culturean = 1 sinon 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml</fplt>
+            <ftec>MZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+</usms>
