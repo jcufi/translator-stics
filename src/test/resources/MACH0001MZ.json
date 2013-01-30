@@ -124686,6 +124686,11 @@
         "seqid": "1",
         "cul_name": "SHORT SEASON"
       },
+          {"event": "irrigation",
+    "date": "19990815",
+    "irop": "IR001",
+    "irval": "13",
+    "ireff": "1"},
       {
         "date": "19990415",
         "event": "fertilizer",

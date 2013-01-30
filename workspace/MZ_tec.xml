@@ -12,10 +12,10 @@
                 <colonne nom="eaures"/>
             </ta_entete>
             <intervention nb_colonnes="7">
-                <colonne nom="julres">19820225</colonne>
-                <colonne nom="coderes">MZ</colonne>
-                <colonne nom="qres">1000</colonne>
-                <colonne nom="Crespc">$initial_condition.icrli</colonne>
+                <colonne nom="julres">56</colonne>
+                <colonne nom="coderes">1</colonne>
+                <colonne nom="qres">1.0</colonne>
+                <colonne nom="Crespc">42</colonne>
                 <colonne nom="CsurNres">60.00</colonne>
                 <colonne nom="Nminres">.8</colonne>
                 <colonne nom="eaures">0.00</colonne>
@@ -31,22 +31,22 @@
                 <colonne nom="proftrav"/>
             </ta_entete>
             <intervention nb_colonnes="3">
-                <colonne nom="jultrav">165 <!-- jjulien --> --></colonne>
+                <colonne nom="jultrav">165 <!-- jjulien --> </colonne>
                 <colonne nom="profres">15</colonne>
-                <colonne nom="proftrav">30</colonne>
+                <colonne nom="proftrav">35</colonne>
             </intervention>
         </ta>
     </formalisme>
     
     <formalisme nom="sowing"> <!-- section "planting" -->
         <param format="integer" max="731" min="1" nom="iplt0"> 57</param>
-        <param format="real" max="10.0" min="1.0E-4" nom="profsem">7</param>
+        <param format="real" max="10.0" min="0.0" nom="profsem">7</param>
         <param format="real" max="2000.0" min="0.05" nom="densitesem">7.2</param>
         <param format="integer" max="200" min="0" nom="variete">1</param>
         <option choix="2" nom="planting structure (if radiative transfer)" nomParam="codetradtec">
             <choix code="1" nom="yes">
-                <param format="real" max="10.0" min="1.0E-4" nom="interrang">0</param>
-                <param format="real" max="3.14" min="1.0E-4" nom="orientrang">0.00000</param>
+                <param format="real" max="10.0" min="0.0" nom="interrang">61</param>
+                <param format="real" max="6.28" min="0.0" nom="orientrang">0.00000</param>
             </choix>
             <choix code="2" nom="no"/>
         </option>
@@ -64,7 +64,7 @@
         <option choix="2" nom="forcing" nomParam="codestade">
             <choix code="1" nom="yes">
                 <param format="integer" max="731" min="1" nom="ilev">999</param>
-                <param format="integer" max="731" min="1" nom="iamf">442</param>
+                <param format="integer" max="731" min="1" nom="iamf">999</param>
                 <param format="integer" max="731" min="1" nom="ilax">999</param>
                 <param format="integer" max="731" min="1" nom="isen">999</param>
                 <param format="integer" max="731" min="1" nom="ilan">999</param>
@@ -80,12 +80,12 @@
     
     
     <formalisme nom="irrigation">
-        <param format="real" max="1.0" min="1.0E-4" nom="effirr">1</param>
+        <param format="real" max="1.0" min="0.2" nom="effirr">1</param>
         <option choix="2" nom="automatic calculation of irrigations" nomParam="codecalirrig">
             <choix code="1" nom="yes">
-                <param format="real" max="1.0" min="1.0E-4" nom="ratiol">0.00000</param>
+                <param format="real" max="1.0" min="0.2" nom="ratiol">0.00000</param>
                 <param format="real" max="500.0" min="10.0" nom="dosimx">40.00000</param>
-                <param format="real" max="500.0" min="1.0E-4" nom="doseirrigmin">20.00000</param>
+                <param format="real" max="500.0" min="0.0" nom="doseirrigmin">20.00000</param>
             </choix>
             <choix code="2" nom="no">
                 <option choix="2" nom="date of irrigation" nomParam="codedateappH2O">
@@ -97,10 +97,12 @@
                         <colonne nom="julapI_or_sum_upvt"/>
                         <colonne nom="amount"/>
                     </ta_entete>
-                    <intervention nb_colonnes="2">
-						                        <colonne nom="julapI_or_sum_upvt">63</colonne>
+                   
+												 <intervention nb_colonnes="2">
+                        <colonne nom="julapI_or_sum_upvt">63</colonne>
                         <colonne nom="amount">13</colonne>
-						                    </intervention>
+                        </intervention>
+						                    
                 </ta>
             </choix>
         </option>
@@ -108,17 +110,17 @@
             <choix code="1" nom="above foliage"/>
             <choix code="2" nom="under foliage"/>
             <choix code="3" nom="in the soil">
-                <param format="integer" max="30" min="0" nom="locirrig">$irrigation[0].irmdp</param>
+                <param format="integer" max="30" min="0" nom="locirrig">5</param>
             </choix>
         </option>
-        <param format="real" max="1000.0" min="10.0" nom="profmes">$irrigation[0].dtwt</param>
+        <param format="real" max="1000.0" min="10.0" nom="profmes">60		</param>
     </formalisme>
     
     
     <formalisme nom="fertilisation">
     <!-- 1 type ds stics -->
         <param format="integer" max="8" min="0" nom="engrais">1</param>
-        <param format="real" max="0.2" min="1.0E-4" nom="concirr">$irrigation[0].irn</param>
+        <param format="real" max="0.2" min="0.0" nom="concirr">0.02</param>
         <option choix="2" nom="date of fertilisation" nomParam="codedateappN">
             <choix code="1" nom="sum of upvt"/>
             <choix code="2" nom="julian days"/>
@@ -136,25 +138,31 @@
                 <colonne nom="absolute_value/%"/>
             </ta_entete>
             <!-- iterer sur les fertilisation -->
-            <intervention nb_colonnes="2">
-            	<colonne nom="julapN_or_sum_upvt">97</colonne><colonne nom="absolute_value/%">27</colonne>
-                <colonne nom="julapN_or_sum_upvt">102</colonne><colonne nom="absolute_value/%">35</colonne>
-                <colonne nom="julapN_or_sum_upvt">137</colonne><colonne nom="absolute_value/%">54</colonne>
-                            </intervention>
+            
+            	            	<intervention nb_colonnes="2">
+<colonne nom="julapN_or_sum_upvt">97</colonne><colonne nom="absolute_value/%">27</colonne>
+			    </intervention>
+                            	<intervention nb_colonnes="2">
+<colonne nom="julapN_or_sum_upvt">102</colonne><colonne nom="absolute_value/%">35</colonne>
+			    </intervention>
+                            	<intervention nb_colonnes="2">
+<colonne nom="julapN_or_sum_upvt">137</colonne><colonne nom="absolute_value/%">54</colonne>
+			    </intervention>
+                            
             
         </ta>
         <option choix="1" nom="location of mineral nitrogen inputs" nomParam="codlocferti">
             <choix code="1" nom="at soil surface"/>
             <choix code="2" nom="below soil surface">
-                <param format="integer" max="30" min="0" nom="locferti">5	</param>
+                <param format="integer" max="30" min="0" nom="locferti">10</param>
             </choix>
         </option>
-        <param format="character" max="0" min="0" nom="ressuite">pailles</param>
+        <param format="character" nom="ressuite">straw+roots</param>
     </formalisme>
     
     
-    <formalisme nom="harvest">
-        <option choix="$harvest.harm" nom="method of harvest" nomParam="codceuille">
+    <formalisme nom="harvest"><!--$harvest.harm-->
+        <option choix="1" nom="method of harvest" nomParam="codceuille">
             <choix code="1" nom="cutting"/>
             <choix code="2" nom="picking">
                 <option choix="1" nom="number of pickings" nomParam="nbceuille">
@@ -173,7 +181,7 @@
                         <param format="real" max="1.0" min="0.05" nom="h2ograinmin">0.80000</param>
                     </choix>
                     <choix code="2" nom="maximum">
-                        <param format="real" max="1.0" min="0.05" nom="h2ograinmax">0.14000</param>
+                        <param format="real" max="1.0" min="0.05" nom="h2ograinmax">0.32000</param>
                     </choix>
                 </option>
             </choix>
@@ -181,7 +189,7 @@
                 <param format="real" max="0.5" min="1.0E-4" nom="sucrerec">0.25000</param>
             </choix>
             <choix code="4" nom="nitrogen content">
-                <param format="real" max="1.0" min="1.0E-4" nom="CNgrainrec">0.02000</param>
+                <param format="real" max="1.0" min="0.0" nom="CNgrainrec">0.02000</param>
             </choix>
             <choix code="5" nom="oil content">
                 <param format="real" max="1.0" min="0.1" nom="huilerec">0.25000</param>
@@ -202,11 +210,11 @@
     <formalisme nom="special techniques">
         <option choix="2" nom="cut crop" nomParam="codefauche">
             <choix code="1" nom="yes">
-                <param format="real" max="10.0" min="1.0E-4" nom="mscoupemini">0.00000</param>
+                <param format="real" max="10.0" min="1.0" nom="mscoupemini">0.00000</param>
                 <option choix="1" nom="Method.of.cutting" nomParam="codemodfauche">
                     <choix code="1" nom="automatic">
                         <param format="real" max="0.5" min="0.01" nom="hautcoupedefaut">0.00000</param>
-                        <param format="character" max="0" min="0" nom="stadecoupedf">rec</param>
+                        <param format="character" nom="stadecoupedf">rec</param>
                     </choix>
                     <choix code="2" nom="calendar in days">
                         <ta nb_interventions="0" nom="cutting management">
@@ -237,16 +245,16 @@
         <option choix="1" nom="mulch" nomParam="codepaillage">
             <choix code="1" nom="no"/>
             <choix code="2" nom="plastic mulch">
-                <param format="real" max="1.0" min="1.0E-4" nom="couvermulchplastique">0.00000</param>
+                <param format="real" max="1.0" min="0.0" nom="couvermulchplastique">0.00000</param>
                 <param format="real" max="0.8" min="0.05" nom="albedomulchplastique">0.00000</param>
             </choix>
         </option>
         <option choix="1" nom="topping" nomParam="codrognage">
             <choix code="1" nom="no"/>
             <choix code="2" nom="yes">
-                <param format="real" max="2.0" min="1.0E-4" nom="largrogne">0.00000</param>
-                <param format="real" max="2.0" min="1.0E-4" nom="hautrogne">0.00000</param>
-                <param format="real" max="10.0" min="1.0E-4" nom="biorognem">0.00000</param>
+                <param format="real" max="2.0" min="0.1" nom="largrogne">0.00000</param>
+                <param format="real" max="2.0" min="0.2" nom="hautrogne">0.00000</param>
+                <param format="real" max="10.0" min="0.0" nom="biorognem">0.00000</param>
                 <option choix="1" nom="topping calendar" nomParam="codcalrogne">
                     <choix code="1" nom="fixed date">
                         <param format="integer" max="731" min="1" nom="julrogne">0</param>
@@ -261,7 +269,7 @@
             <choix code="1" nom="no"/>
             <choix code="2" nom="yes">
                 <param format="integer" max="731" min="1" nom="juleclair">0</param>
-                <param format="real" max="10.0" min="1.0" nom="nbinfloecl">0.00000</param>
+                <param format="real" max="10.0" min="0.0" nom="nbinfloecl">0.00000</param>
             </choix>
         </option>
         <option choix="1" nom="leaf removal" nomParam="codeffeuil">
@@ -274,7 +282,7 @@
                 <option choix="1" nom="leaf.removal.calculation" nomParam="codcaleffeuil">
                     <choix code="1" nom="automatic calculation">
                         <param format="real" max="10.0" min="1.0" nom="laidebeff">0.00000</param>
-                        <param format="real" max="1.0" min="1.0E-4" nom="effeuil">0.00000</param>
+                        <param format="real" max="1.0" min="0.0" nom="effeuil">0.00000</param>
                     </choix>
                     <choix code="2" nom="fixed date">
                         <param format="integer" max="731" min="1" nom="juleffeuil">0</param>
@@ -293,7 +301,7 @@
             <choix code="1" nom="no"/>
             <choix code="2" nom="yes">
                 <param format="real" max="3.0" min="0.5" nom="hautmaxtec">0.00000</param>
-                <param format="real" max="1.0" min="0.1" nom="largtec">0.50000</param>
+                <param format="real" max="2.0" min="0.1" nom="largtec">0.50000</param>
             </choix>
         </option>
         <option choix="1" nom="greenhouse crop" nomParam="codabri">
@@ -320,9 +328,9 @@
         </option>
         <option choix="2" nom="activation compaction sowing/harvest" nomParam="codeDSTtass">
             <choix code="1" nom="yes">
-                <param format="real" max="100.0" min="1.0E-4" nom="profhumsemoir">30.00000</param>
+                <param format="real" max="100.0" min="0.0" nom="profhumsemoir">30.00000</param>
                 <param format="real" max="2.0" min="0.8" nom="dasemis">1.60000</param>
-                <param format="real" max="100.0" min="1.0E-4" nom="profhumrecolteuse">30.00000</param>
+                <param format="real" max="100.0" min="0.0" nom="profhumrecolteuse">30.00000</param>
                 <param format="real" max="2.0" min="0.8" nom="darecolte">1.60000</param>
             </choix>
             <choix code="2" nom="no"/>

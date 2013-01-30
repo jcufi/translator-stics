@@ -9,15 +9,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.agmip.core.types.TranslatorOutput;
+import org.agmip.translators.stics.util.SoilAggregationTool;
 import org.agmip.translators.stics.util.SticsUtil;
 import org.agmip.translators.stics.util.VelocityUtil;
 import org.agmip.util.MapUtil;
 import org.agmip.util.MapUtil.BucketEntry;
-import org.apache.velocity.app.Velocity;
 import org.apache.velocity.context.Context;
 
 public class SoilAndInitOutput implements TranslatorOutput {

@@ -80,7 +80,7 @@
     
     
     <formalisme nom="irrigation">
-        <param format="real" max="1.0" min="0.2" nom="effirr">1</param>
+        <param format="real" max="1.0" min="0.2" nom="effirr">$irrigation[0].ireff</param>
         <option choix="2" nom="automatic calculation of irrigations" nomParam="codecalirrig">
             <choix code="1" nom="yes">
                 <param format="real" max="1.0" min="0.2" nom="ratiol">0.00000</param>
@@ -108,21 +108,21 @@
                 </ta>
             </choix>
         </option>
-        <option choix="1" nom="location of irrigation" nomParam="codlocirrig">
+        <option choix="$irrigation[0].irop" nom="location of irrigation" nomParam="codlocirrig">
             <choix code="1" nom="above foliage"/>
             <choix code="2" nom="under foliage"/>
             <choix code="3" nom="in the soil">
-                <param format="integer" max="30" min="0" nom="locirrig">0</param>
+                <param format="integer" max="30" min="0" nom="locirrig">$irrigation[0].irmdp</param>
             </choix>
         </option>
-        <param format="real" max="1000.0" min="10.0" nom="profmes">50</param>
+        <param format="real" max="1000.0" min="10.0" nom="profmes">$irrigation[0].dtwt</param>
     </formalisme>
     
     
     <formalisme nom="fertilisation">
     <!-- 1 type ds stics -->
         <param format="integer" max="8" min="0" nom="engrais">$fertilizer[0].fecd</param>
-        <param format="real" max="0.2" min="0.0" nom="concirr">0</param>
+        <param format="real" max="0.2" min="0.0" nom="concirr">$irrigation[0].irn</param>
         <option choix="2" nom="date of fertilisation" nomParam="codedateappN">
             <choix code="1" nom="sum of upvt"/>
             <choix code="2" nom="julian days"/>
@@ -160,7 +160,7 @@
     
     
     <formalisme nom="harvest"><!--$harvest.harm-->
-        <option choix="1" nom="method of harvest" nomParam="codceuille">
+        <option choix="$harvest.harm" nom="method of harvest" nomParam="codceuille">
             <choix code="1" nom="cutting"/>
             <choix code="2" nom="picking">
                 <option choix="1" nom="number of pickings" nomParam="nbceuille">
@@ -331,6 +331,7 @@
                 <param format="real" max="100.0" min="0.0" nom="profhumrecolteuse">30.00000</param>
                 <param format="real" max="2.0" min="0.8" nom="darecolte">1.60000</param>
             </choix>
+            <choix code="2" nom="no"/>
         </option>
         <option choix="2" nom="nb of layers affected by the compaction" nomParam="codeDSTnbcouche">
             <choix code="1" nom="1"/>

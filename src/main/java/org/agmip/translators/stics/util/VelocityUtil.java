@@ -2,7 +2,6 @@ package org.agmip.translators.stics.util;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.util.LinkedHashMap;
 import java.util.List;

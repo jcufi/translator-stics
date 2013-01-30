@@ -46,7 +46,7 @@
 			</choix>
 			<choix code="2" nom="no" />
 		</option>
-		<option choix="2" nom="nitrification" nomParam="codenitrif">
+		<option choix="1" nom="nitrification" nomParam="codenitrif">
 			<choix code="1" nom="yes" />
 			<choix code="2" nom="no" />
 		</option>

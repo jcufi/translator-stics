@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import org.agmip.translators.stics.util.SoilAggregationTool;
 import org.junit.Test;
 
 public class SoilAggregatorTest {
