@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -31,8 +32,17 @@ public class ManagementOutput implements TranslatorOutput {
 	public static String EVENT_TILLAGE = "tillage";
 	public static String EVENT_KEY = "event";
 	public static String DATE_FORMAT = "yyyyMMdd";
-	public String TEC_TEMPLATE_FILE = "tec_template.xml";
+	public String TEC_TEMPLATE_FILE = "tec_template.vm";
 	public HashMap<String, String[]> codeToMapByEvent = new HashMap<String, String[]>();
+	SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
+	private String crid;
+	public String getCrid() {
+		return crid;
+	}
+
+	public void setCrid(String crid) {
+		this.crid = crid;
+	}
 
 	private File mngmtFile;
 
@@ -59,7 +69,8 @@ public class ManagementOutput implements TranslatorOutput {
 			managementBucket = MapUtil.getBucket(data, BUCKET_MANAGEMENT);
 
 			initialConditions = initialConditionBucket.getValues();
-
+			SticsUtil.defaultValueFor(Arrays.asList((new String[] { "icrli" })), initialConditions);
+			SticsUtil.convertValues(initialConditions);
 			mgmtDataByEvent = new LinkedHashMap<String, LinkedHashMap<String, String>>();
 			fertilizerList = new ArrayList<LinkedHashMap<String, String>>();
 			irigationList = new ArrayList<LinkedHashMap<String, String>>();
@@ -67,9 +78,21 @@ public class ManagementOutput implements TranslatorOutput {
 			// fill missing values with default values
 			// management default values for : tidep, plrs, tidep, plrs, ireff,
 			// irmdp, dtwt, harm
-			SticsUtil.convertNestedRecords(managementBucket.getDataList());
-
+			SticsUtil.convertNestedRecords(managementBucket.getDataList(), Arrays.asList((new String[] { "tidep", "plrs", "tidep", "plrs", "ireff", "irmdp", "dtwt", "harm" })));
 			// process buckets
+			initialConditions.put("icpcr", IcasaCode.toSticsCode(initialConditions.get("icpcr")));
+
+			Date date;
+			// TODO
+			try {
+				date = formatter.parse((String) initialConditions.get("icdat"));
+				int julianDayDate = SticsUtil.getJulianDay(date);
+				initialConditions.put("icdat", String.valueOf(julianDayDate));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			for (LinkedHashMap<String, String> mgmtData : managementBucket.getDataList()) {
 				String event = mgmtData.get(EVENT_KEY);
 				// replace icasa code by stics code
@@ -85,6 +108,11 @@ public class ManagementOutput implements TranslatorOutput {
 					mgmtDataByEvent.put(event, mgmtData);
 				}
 			}
+
+			for (LinkedHashMap<String, String> e : irigationList) {
+				SticsUtil.defaultValueFor(Arrays.asList(new String[] { "irn" }), e);
+			}
+
 			// We need to sort fertilizer data by date
 			sortListByDate(fertilizerList);
 			// Convert date in julian day
@@ -94,7 +122,9 @@ public class ManagementOutput implements TranslatorOutput {
 			convertDate(mgmtDataByEvent.get(EVENT_PLANTING));
 			convertDate(mgmtDataByEvent.get(EVENT_TILLAGE));
 			String content = generateTecfile(mgmtDataByEvent, fertilizerList, initialConditions, irigationList);
-			mngmtFile = SticsUtil.newFile(content, file, mgmtDataByEvent.get(EVENT_PLANTING).get("crid") + "_tec.xml");
+			String crid = mgmtDataByEvent.get(EVENT_PLANTING).get("crid") == null ? SticsUtil.defaultValue("crid") : mgmtDataByEvent.get(EVENT_PLANTING).get("crid");
+			setCrid(crid);
+			mngmtFile = SticsUtil.newFile(content, file, crid + "_tec.xml");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -125,8 +155,7 @@ public class ManagementOutput implements TranslatorOutput {
 		try {
 			// if the structure contains date field, we convert it into julian
 			// day
-
-			if (data.containsKey("date")) {
+			if (data != null && data.containsKey("date")) {
 				Date date = formatter.parse(data.get("date"));
 				int julianDayDate = SticsUtil.getJulianDay(date);
 				data.put("date", String.valueOf(julianDayDate));
@@ -137,8 +166,6 @@ public class ManagementOutput implements TranslatorOutput {
 			e.printStackTrace();
 		}
 	}
-
-	SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
 
 	public void convertListOfDate(ArrayList<LinkedHashMap<String, String>> dataList) {
 		for (LinkedHashMap<String, String> data : dataList) {

@@ -202,6 +202,8 @@ public class WeatherOutput implements TranslatorOutput {
 			firstLevelStationParameters.put("refht", refht);
 			firstLevelStationParameters.put("fl_lat", fl_lat);
 			firstLevelStationParameters.put("flele", flele);
+			firstLevelStationParameters.put("anga", anga);
+			firstLevelStationParameters.put("angb", angb);
 			context = VelocityUtil.fillVelocityContext(firstLevelStationParameters, null);
 			content = VelocityUtil.runVelocity(context, STATION_TEMPLATE_FILE);
 			stationFile = SticsUtil.newFile(content, filePath, city+ "_sta.xml");

@@ -21,6 +21,13 @@ public class IcasaCode {
 		}
 	}
 	public static String toSticsCode(String icasaCode){
-		return (codeMap.containsKey(icasaCode) ? (String) codeMap.get(icasaCode) : CODE_UNKNOWN); 
+		String result;
+		if(!codeMap.containsKey(icasaCode)){
+			Report.addInfo("Unknown code : "+icasaCode);
+			result = CODE_UNKNOWN;
+		}else{
+			result = (String) codeMap.get(icasaCode); 
+		}
+		return result; 
 	}
 }

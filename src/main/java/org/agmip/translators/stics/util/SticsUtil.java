@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -75,8 +77,6 @@ public class SticsUtil {
 			result = Float.parseFloat(paramValue) * 10f;
 		} else if ("sksat".equals(paramName)) {
 			result = Float.parseFloat(paramValue) * 10 * 24;
-		} else if ("sldul".equals(paramName)) {
-			result = Float.parseFloat(paramValue) * 10 * 24;
 		} else if ("sloc".equals(paramName)) {
 			result = Float.parseFloat(paramValue) / 1.8f / 9.52f;
 		} else if ("caco3".equals(paramName)) {
@@ -90,9 +90,9 @@ public class SticsUtil {
 
 	public static String defaultValue(String key) {
 		String value;
-		if(defaultvalues.containsKey(key)){
+		if (defaultvalues.containsKey(key)) {
 			value = defaultvalues.get(key);
-		}else{
+		} else {
 			value = UNKNOWN_DEFAULT_VALUE;
 		}
 		Report.addParamInfo(key, value);
@@ -128,14 +128,17 @@ public class SticsUtil {
 		return defaultProperties;
 	}
 
-	public static void fillDefault(LinkedHashMap<String, String> values) {
-		// Fill default values
-		for (String key : values.keySet()) {
-			if (defaultvalues.containsKey(key)) {
-				values.put(key, defaultValue(key));
-			} else {
-				values.put(key, convert(key, values.get(key)));
+	public static void defaultValueFor(List<String> params, LinkedHashMap<String, String> values){
+		for (String param : params) {
+			if(!values.containsKey(param)){
+				values.put(param, defaultValue(param));
 			}
+		}
+	}
+	
+	public static void convertValues(LinkedHashMap<String, String> values) {
+		for (String key : values.keySet()) {
+			values.put(key, convert(key, values.get(key)));
 		}
 
 	}
@@ -153,12 +156,14 @@ public class SticsUtil {
 	}
 
 	public static void convertFirstLevelRecords(LinkedHashMap<String, String> values) {
-		fillDefault(values);
+		convertValues(values);
+		
 	}
 
-	public static void convertNestedRecords(ArrayList<LinkedHashMap<String, String>> dataList) {
+	public static void convertNestedRecords(ArrayList<LinkedHashMap<String, String>> dataList, List<String> paramWithDefaultValues) {
 		for (LinkedHashMap<String, String> data : dataList) {
-			fillDefault(data);
+			convertValues(data);
+			SticsUtil.defaultValueFor(paramWithDefaultValues, data);
 		}
 	}
 

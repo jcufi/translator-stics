@@ -25,10 +25,11 @@ public class SoilAggregationTool {
 	public static String ICNO3 = "icno3";
 	public static String ICNH4 = "icnh4";
 
-	private String[] allParams = new String[] { SLLL, SLDUL, SLBDM, SKSAT, SLLB, SLOC };
+	private String[] allParams = new String[] { SLLL, SLDUL, SLBDM, SKSAT, SLLB, SLOC, ICH2O, ICNO3, ICNH4 };
 
 	/**
 	 * Round float
+	 * 
 	 * @param r
 	 * @return
 	 */
@@ -37,11 +38,10 @@ public class SoilAggregationTool {
 	}
 
 	/**
-	 * Criteria for merging soils
-	 * ru is the maximum available water reserve (reserve utile)
-	 * sdul is the field capacity
-	 * slll is the wilting point (point de fletrissement permanent)
-	 * slbdm is the bulk density
+	 * Criteria for merging soils ru is the maximum available water reserve
+	 * (reserve utile) sdul is the field capacity slll is the wilting point
+	 * (point de fletrissement permanent) slbdm is the bulk density
+	 * 
 	 * @param currentSoil
 	 * @param previousSoil
 	 * @return
@@ -57,32 +57,32 @@ public class SoilAggregationTool {
 		float resultSecRule;
 		boolean firstRule;
 		boolean secRule;
-		
+
 		// Unit change for stics only
 		sdulCurrent_no_convert = Float.parseFloat(currentSoil.get(SLDUL)) * Float.parseFloat(currentSoil.get(SLBDM)) / 100f;
 		slllCurrent_no_convert = Float.parseFloat(currentSoil.get(SLLL)) * Float.parseFloat(currentSoil.get(SLBDM)) / 100f;
 		sdulPrevious_no_convert = Float.parseFloat(previousSoil.get(SLDUL)) * Float.parseFloat(previousSoil.get(SLBDM)) / 100f;
 		slllPrevious_no_convert = Float.parseFloat(previousSoil.get(SLLL)) * Float.parseFloat(previousSoil.get(SLBDM)) / 100f;
 		// end of unit change
-		
+
 		// ru in mm/m
 		ruCurrent = (sdulCurrent_no_convert - slllCurrent_no_convert) * 1000f;
 		ruPrevious = (sdulPrevious_no_convert - slllPrevious_no_convert) * 1000f;
 		resultFirstRule = round(Math.abs(ruCurrent - ruPrevious));
 		firstRule = (Float.parseFloat(String.valueOf(resultFirstRule)) <= 5f);
-		
+
 		/**
-		 * First  rule : (currentRu - previousRu) <= 5 mm / m
-		 * Second rule : (currentBdm - previousBdm) <= 0.05
-		 * Soil layers are aggregated if the rules below are both true
+		 * First rule : (currentRu - previousRu) <= 5 mm / m Second rule :
+		 * (currentBdm - previousBdm) <= 0.05 Soil layers are aggregated if the
+		 * rules below are both true
 		 * */
 		resultSecRule = round(Math.abs(Float.parseFloat(currentSoil.get(SLBDM)) - Float.parseFloat(previousSoil.get(SLBDM))));
 		secRule = (round(resultSecRule) <= 0.05f);
-		
-		System.out.println("*********************");
+
+		/*System.out.println("*********************");
 		System.out.println("First rule : " + resultFirstRule + " <= 5f ? " + firstRule);
 		System.out.println("Sec rule : " + resultSecRule + " <= 0.05f ? " + secRule);
-		System.out.println("*********************");
+		System.out.println("*********************");*/
 
 		return firstRule && secRule;
 	}
@@ -104,6 +104,8 @@ public class SoilAggregationTool {
 				aggregate = dirkRaesAndDomiTest(currentSoil, previousSoil);
 				if (aggregate) {
 					System.out.println("Aggregating soil layers... " + i + " and " + (i - 1));
+					System.out.println("soil "+i+" "+currentSoil);
+					System.out.println("soil "+(i-1)+" "+previousSoil);
 					// Compute the new map
 					aggregatedSoil = computeSoil(currentSoil, previousSoil);
 					if (aggregatedSoilsData.contains(previousSoil)) {
@@ -115,6 +117,7 @@ public class SoilAggregationTool {
 				} else {
 					previousSoil = currentSoil;
 					System.out.println("Adding soil layer ...");
+					System.out.println("soil "+i+" "+currentSoil);
 					aggregatedSoilsData.add(currentSoil);
 				}
 			} else {
@@ -131,17 +134,19 @@ public class SoilAggregationTool {
 
 	private LinkedHashMap<String, String> computeSoil(Map<String, String> fullCurrentSoil, Map<String, String> previousSoil) {
 		LinkedHashMap<String, String> aggregatedSoil;
+		String fullCurrentValue;
+		String previousValue;
+		Float newValue;
 		aggregatedSoil = new LinkedHashMap<String, String>();
 		for (String p : allParams) {
-			if (!SLLB.equals(p)) {
-				String fullCurrentValue = fullCurrentSoil.get(p) == null ?  SticsUtil.defaultValue(p) : fullCurrentSoil.get(p) ;
-				String previousValue = previousSoil.get(p) == null ? SticsUtil.defaultValue(p) : previousSoil.get(p) ;
-				Float newValue = (Float.parseFloat(fullCurrentValue) + Float.parseFloat(previousValue)) / 2f;
-				aggregatedSoil.put(p, newValue.toString());
+			if (!SLLB.equals(p) && !ICNH4.equals(p) && !ICNO3.equals(p)) {
+				fullCurrentValue = fullCurrentSoil.get(p) == null ? SticsUtil.defaultValue(p) : fullCurrentSoil.get(p);
+				previousValue = previousSoil.get(p) == null ? SticsUtil.defaultValue(p) : previousSoil.get(p);
+				newValue = (Float.parseFloat(fullCurrentValue) + Float.parseFloat(previousValue)) / 2f;
 			} else {
-				Float newValue = (Float.parseFloat(fullCurrentSoil.get(p)) + Float.parseFloat(previousSoil.get(p)));
-				aggregatedSoil.put(p, newValue.toString());
+				newValue = (Float.parseFloat(fullCurrentSoil.get(p)) + Float.parseFloat(previousSoil.get(p)));
 			}
+			aggregatedSoil.put(p, newValue.toString());
 		}
 		return aggregatedSoil;
 	}
@@ -169,12 +174,13 @@ public class SoilAggregationTool {
 					}
 				}
 				// Convertion
-				String[] paramToConvert = { SLDUL, SLLL, ICH2O, ICNO3, ICNH4 };
+				String[] paramToConvert = { SLDUL, SLLL, ICH2O };
 				for (String param : paramToConvert) {
 					if (fullCurrentSoil.containsKey(param)) {
 						fullCurrentSoil.put(param, new Float(Float.parseFloat(fullCurrentSoil.get(param)) / Float.parseFloat(fullCurrentSoil.get(SLBDM)) * 100f).toString());
 					}
 				}
+				// TODO ICNO3, ICNH4 cumulatif
 				// Specific for stics soil data representation
 				fullCurrentSoil.put(SLLB, new Float(Float.parseFloat(currentSoil.get(SLLB)) - deep).toString());
 				newSoilsData.add(fullCurrentSoil);

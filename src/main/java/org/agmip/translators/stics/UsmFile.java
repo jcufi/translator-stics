@@ -56,7 +56,11 @@ public class UsmFile implements TranslatorOutput {
 		context.put("exname", exname);
 		context.put("soil_id", soilId);
 		context.put("icdat", String.valueOf(icdatJulianDay));
-		context.put("dateFin", icdatJulianDay + YEAR);
+		if(climaticFiles.size() > 1){
+			context.put("dateFin", 2*YEAR);	
+		}else{
+			context.put("dateFin", YEAR);
+		}
 		context.put(INIT_FILE, fileNames.get(INIT_FILE));
 		context.put(STATION_FILE, fileNames.get(STATION_FILE));
 		context.put(SOIL_FILE, fileNames.get(SOIL_FILE));

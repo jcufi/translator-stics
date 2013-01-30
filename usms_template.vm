@@ -6,11 +6,12 @@
         <finit>$init_file</finit>
         <nomsol>$soil_id</nomsol>
         <fstation>$station_file</fstation>
-        <!-- iterer sur le nombre de fichier climat -->
+        <!-- loop on the total climate files -->
         #foreach($climFileName in $clim_files)
         <fclim$foreach.count>$climFileName</fclim$foreach.count>
         #end
-        <!-- si c'est sur 1 ans alors culturean = 1 sinon 0 -->
+        <fclim2>null</fclim2>
+        <!-- if the crop is on 1 year then culturean = 1 else 0 -->
         <culturean>0</culturean>
         <nbplantes>1</nbplantes>
         <codesimul>0</codesimul>
