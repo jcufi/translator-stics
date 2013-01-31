@@ -3,13 +3,24 @@ package org.agmip.translators.stics.util;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-
+/**
+ * Class used to reduce number of soil layers.
+ * 
+ * @author jucufi
+ * @author dripoche
+ * 
+ */
 public class SoilAggregationTool {
 
+	private static final Logger log = LoggerFactory.getLogger(SoilAggregationTool.class);
+
 	// slll sldul slbdm sksat
-	// Threshold used to merge soil layers
-	float THRESHOLD = 0.02f;
+	// Thresholds used to merge soil layers
+	public float FIRST_THRESHOLD = 5f;
+	public float SECOND_THRESHOLD = 0.05f;
 	// Soil information under soil section
 	public static String SLLL = "slll";
 	public static String SLDUL = "sldul";
@@ -68,7 +79,7 @@ public class SoilAggregationTool {
 		ruCurrent = (sdulCurrent_no_convert - slllCurrent_no_convert) * 1000f;
 		ruPrevious = (sdulPrevious_no_convert - slllPrevious_no_convert) * 1000f;
 		resultFirstRule = round(Math.abs(ruCurrent - ruPrevious));
-		firstRule = (Float.parseFloat(String.valueOf(resultFirstRule)) <= 5f);
+		firstRule = (Float.parseFloat(String.valueOf(resultFirstRule)) <= FIRST_THRESHOLD);
 
 		/**
 		 * First rule : (currentRu - previousRu) <= 5 mm / m Second rule :
@@ -76,16 +87,23 @@ public class SoilAggregationTool {
 		 * rules below are both true
 		 * */
 		resultSecRule = round(Math.abs(Float.parseFloat(currentSoil.get(SLBDM)) - Float.parseFloat(previousSoil.get(SLBDM))));
-		secRule = (round(resultSecRule) <= 0.05f);
+		secRule = (round(resultSecRule) <= SECOND_THRESHOLD);
 
-		/*System.out.println("*********************");
-		System.out.println("First rule : " + resultFirstRule + " <= 5f ? " + firstRule);
-		System.out.println("Sec rule : " + resultSecRule + " <= 0.05f ? " + secRule);
-		System.out.println("*********************");*/
+		log.debug("*********************");
+		log.debug("First rule : " + resultFirstRule + " <= " + FIRST_THRESHOLD + " ? " + firstRule);
+		log.debug("Sec rule : " + resultSecRule + " <= " + SECOND_THRESHOLD + " ? " + secRule);
+		log.debug("*********************");
 
 		return firstRule && secRule;
 	}
 
+	/**
+	 * Process all the soil layers and return a new structure with aggregated
+	 * data
+	 * 
+	 * @param soilsData
+	 * @return
+	 */
 	public ArrayList<LinkedHashMap<String, String>> mergeSoilLayers(ArrayList<LinkedHashMap<String, String>> soilsData) {
 		LinkedHashMap<String, String> previousSoil;
 		ArrayList<LinkedHashMap<String, String>> aggregatedSoilsData;
@@ -95,16 +113,16 @@ public class SoilAggregationTool {
 		aggregate = true;
 		aggregatedSoilsData = new ArrayList<LinkedHashMap<String, String>>();
 		ArrayList<LinkedHashMap<String, String>> formattedSoilsData = formatSoilLayers(soilsData);
-		// System.out.println("Formated soil data : "+formattedSoilsData);
+		log.debug("Formated soil data : " + formattedSoilsData);
 		int i = 0;
 		for (LinkedHashMap<String, String> currentSoil : formattedSoilsData) {
 			i++;
 			if (previousSoil != null) {
 				aggregate = dirkRaesAndDomiTest(currentSoil, previousSoil);
 				if (aggregate) {
-					System.out.println("Aggregating soil layers... " + i + " and " + (i - 1));
-					System.out.println("soil "+i+" "+currentSoil);
-					System.out.println("soil "+(i-1)+" "+previousSoil);
+					log.debug("Aggregating soil layers... " + i + " and " + (i - 1));
+					log.debug("soil " + i + " " + currentSoil);
+					log.debug("soil " + (i - 1) + " " + previousSoil);
 					// Compute the new map
 					aggregatedSoil = computeSoil(currentSoil, previousSoil);
 					if (aggregatedSoilsData.contains(previousSoil)) {
@@ -115,8 +133,8 @@ public class SoilAggregationTool {
 					aggregatedSoilsData.add(aggregatedSoil);
 				} else {
 					previousSoil = currentSoil;
-					System.out.println("Adding soil layer ...");
-					System.out.println("soil "+i+" "+currentSoil);
+					log.debug("Adding soil layer ...");
+					log.debug("soil " + i + " " + currentSoil);
 					aggregatedSoilsData.add(currentSoil);
 				}
 			} else {
@@ -124,13 +142,20 @@ public class SoilAggregationTool {
 				aggregatedSoilsData.add(currentSoil);
 			}
 		}
-		System.out.println("Information about soil aggregation");
-		System.out.println("Threshold : " + THRESHOLD);
-		System.out.println("Soil layers before : " + soilsData.size());
-		System.out.println("Soil layers after  : " + aggregatedSoilsData.size());
+		log.info("Information about soil aggregation");
+		log.info("Soil layers before : " + soilsData.size());
+		log.info("Soil layers after  : " + aggregatedSoilsData.size());
 		return aggregatedSoilsData;
 	}
 
+	/**
+	 * Create a new soil filled with aggregated data coming from soils set as
+	 * input parameters.
+	 * 
+	 * @param fullCurrentSoil
+	 * @param previousSoil
+	 * @return
+	 */
 	private LinkedHashMap<String, String> computeSoil(Map<String, String> fullCurrentSoil, Map<String, String> previousSoil) {
 		LinkedHashMap<String, String> aggregatedSoil;
 		String fullCurrentValue;
@@ -157,7 +182,7 @@ public class SoilAggregationTool {
 	 * @param soilsData
 	 * @return
 	 */
-	public ArrayList<LinkedHashMap<String, String>> formatSoilLayers(ArrayList<LinkedHashMap<String, String>> soilsData) {
+	private ArrayList<LinkedHashMap<String, String>> formatSoilLayers(ArrayList<LinkedHashMap<String, String>> soilsData) {
 		LinkedHashMap<String, String> referenceSoil;
 		ArrayList<LinkedHashMap<String, String>> newSoilsData;
 		float deep = 0.0f;

@@ -2,7 +2,7 @@
 Stics translator report
 ***********************
 For some parameters default values has been used : 
-wst_name=unknown-default-value
+Unknown code : nocrid-plant-filewst_name=unknown-default-value
 w_date=20110101
 tmin=-999.0
 tmax=-999.0
@@ -29,4 +29,4 @@ irmdp=5
 dtwt=60		
 harm=HM002
 plrs=0
-irn=0.02
+crid=nocrid

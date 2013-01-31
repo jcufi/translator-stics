@@ -15,8 +15,15 @@ import org.agmip.translators.stics.util.VelocityUtil;
 import org.agmip.util.MapUtil;
 import org.agmip.util.MapUtil.BucketEntry;
 import org.apache.velocity.VelocityContext;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+/**
+ * Class responsible of usm file generation (configuration file specific to stics).
+ * @author jucufi
+ *
+ */
 public class UsmOutput implements TranslatorOutput {
+	private static final Logger log = LoggerFactory.getLogger(UsmOutput.class);
 	public static String INIT_FILE = "init_file";
 	public static String STATION_FILE = "station_file";
 	public static String SOIL_FILE = "soil_file";
@@ -26,14 +33,17 @@ public class UsmOutput implements TranslatorOutput {
 	public static String DATE_FORMAT = "yyyyMMdd";
 	public static int YEAR = 365;
 	public static String USM_TEMPLATE_FILE = "/usms_template.vm";
-	HashMap<String, String> fileNames;
-	ArrayList<String> climaticFiles;
+	private HashMap<String, String> fileNames;
+	private ArrayList<String> climaticFiles;
 
 	public UsmOutput(HashMap<String, String> otherFiles, ArrayList<String> climFiles) {
 		fileNames = otherFiles;
 		climaticFiles = climFiles;
 	}
 
+	/**
+	 * @see org.agmip.core.types.TranslatorOutput
+	 */
 	public void writeFile(String file, Map data) {
 		String exname;
 		String content;
@@ -47,8 +57,8 @@ public class UsmOutput implements TranslatorOutput {
 		try {
 			icdatJulianDay = SticsUtil.getJulianDay(formatter.parse(icdat));
 		} catch (ParseException e) {
-			e.printStackTrace();
-			System.err.println("Unable to parse icdat");
+			log.error(e.toString());
+			log.error("Unable to parse icdat");
 		}
 		exname = (String) data.get("exname");
 		String soilId = (String) data.get("soil_id");
@@ -56,9 +66,9 @@ public class UsmOutput implements TranslatorOutput {
 		context.put("exname", exname);
 		context.put("soil_id", soilId);
 		context.put("icdat", String.valueOf(icdatJulianDay));
-		if(climaticFiles.size() > 1){
-			context.put("dateFin", 2*YEAR);	
-		}else{
+		if (climaticFiles.size() > 1) {
+			context.put("dateFin", 2 * YEAR);
+		} else {
 			context.put("dateFin", YEAR);
 		}
 		context.put(INIT_FILE, fileNames.get(INIT_FILE));
@@ -67,11 +77,12 @@ public class UsmOutput implements TranslatorOutput {
 		context.put(CLIM_FILES, climaticFiles);
 		context.put(TEC_FILE, fileNames.get(TEC_FILE));
 		context.put(PLANT_FILE, fileNames.get(PLANT_FILE));
-		content = VelocityUtil.runVelocity(context, USM_TEMPLATE_FILE);
+		content = VelocityUtil.getInstance().runVelocity(context, USM_TEMPLATE_FILE);
 		try {
 			newFile(content, file, "usms.xml");
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("Unable to generate usm file.");
+			log.error(e.toString());
 		}
 	}
 

@@ -20,9 +20,11 @@ import org.agmip.translators.stics.util.VelocityUtil;
 import org.agmip.util.MapUtil;
 import org.agmip.util.MapUtil.BucketEntry;
 import org.apache.velocity.VelocityContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ManagementOutput implements TranslatorOutput {
-
+	private static final Logger log = LoggerFactory.getLogger(ManagementOutput.class);
 	public static String BUCKET_MANAGEMENT = "management";
 	public static String BUCKET_INTIAL_CONDITIONS = "initial_condition";
 	public static String EVENT_FERTILIZER = "fertilizer";
@@ -36,6 +38,7 @@ public class ManagementOutput implements TranslatorOutput {
 	public HashMap<String, String[]> codeToMapByEvent = new HashMap<String, String[]>();
 	SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
 	private String crid;
+
 	public String getCrid() {
 		return crid;
 	}
@@ -89,8 +92,8 @@ public class ManagementOutput implements TranslatorOutput {
 				int julianDayDate = SticsUtil.getJulianDay(date);
 				initialConditions.put("icdat", String.valueOf(julianDayDate));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("Unable to parse icdat field");
+				log.error(e.toString());
 			}
 
 			for (LinkedHashMap<String, String> mgmtData : managementBucket.getDataList()) {
@@ -126,14 +129,15 @@ public class ManagementOutput implements TranslatorOutput {
 			setCrid(crid);
 			mngmtFile = SticsUtil.newFile(content, file, crid + "_tec.xml");
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("Unable to generate tec file.");
+			log.error(e.toString());
 		}
 	}
 
 	public void convertCode(String event, LinkedHashMap<String, String> data) {
 		for (String code : codeToMapByEvent.get(event)) {
 			if (data.containsKey(code)) {
-				System.out.println("Code replaced, old val : " + data.get(code) + " new val : " + IcasaCode.toSticsCode(data.get(code)));
+				log.debug("Code replaced, old val : " + data.get(code) + " new val : " + IcasaCode.toSticsCode(data.get(code)));
 				data.put(code, IcasaCode.toSticsCode(data.get(code)));
 			}
 		}
@@ -148,7 +152,7 @@ public class ManagementOutput implements TranslatorOutput {
 		context.put(EVENT_PLANTING, mgmtDataByevent.get(EVENT_PLANTING));
 		context.put(EVENT_IRRIGATION, irrigationList);
 		context.put(BUCKET_INTIAL_CONDITIONS, initialConditions);
-		return VelocityUtil.runVelocity(context, TEC_TEMPLATE_FILE);
+		return VelocityUtil.getInstance().runVelocity(context, TEC_TEMPLATE_FILE);
 	}
 
 	public void convertDate(LinkedHashMap<String, String> data) {
@@ -161,9 +165,8 @@ public class ManagementOutput implements TranslatorOutput {
 				data.put("date", String.valueOf(julianDayDate));
 			}
 		} catch (ParseException e) {
-			// TODO throw runtime exception ?
-			System.err.println("Invalid date format");
-			e.printStackTrace();
+			log.error("Invalid date format");
+			log.error(e.toString());
 		}
 	}
 
@@ -203,9 +206,8 @@ public class ManagementOutput implements TranslatorOutput {
 					}
 					return result;
 				} catch (ParseException e) {
-					// TODO throw runtime exception ?
-					System.err.println("Unable to parse date");
-					e.printStackTrace();
+					log.error("Unable to parse date");
+					log.error(e.toString());
 					return 0;
 				}
 

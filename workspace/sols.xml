@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <sols>
-	<sol nom="IBMZ910014">
+	<sol nom="IBWH980018">
 		<param nom="argi">12.6</param>
-		<param nom="norg">3.9746752E-4</param>
+		<param nom="norg">1.2122758E-4</param>
 		<param nom="profhum">35.0000</param>
 		<param nom="calc">0.0</param>
 		<param nom="pH">6.2</param>
                 <param format="real" max="0.5" min="0.0" nom="concseuil">0.0000</param>
-		<param nom="albedo">.18</param>
+		<param nom="albedo">.14</param>
 		<param format="real" max="50.0" min="0.0" nom="q0">6.0000</param>
 		<param format="real" max="1.0" min="0.0"  nom="ruisolnu">0.0000</param>
 		<param format="real" max="1000.0" min="10.0"  nom="obstarac">200.0000</param>
@@ -68,30 +68,20 @@
 			<colonne nom="epd" />
 		</tableau_entete>
 				<tableau nb_colonnes="8" nom="horizon 1">
-			<colonne nom="epc">5.0</colonne>
-			<colonne nom="HCCF">7.3846154</colonne>
-			<colonne nom="HMINF">2.0000002</colonne>
-			<colonne nom="DAF">1.3</colonne>
+			<colonne nom="epc">15.0</colonne>
+			<colonne nom="HCCF">19.565218</colonne>
+			<colonne nom="HMINF">6.2608695</colonne>
+			<colonne nom="DAF">1.15</colonne>
 			<colonne nom="cailloux">0.00</colonne>
 			<colonne nom="typecailloux">1</colonne>
 			<colonne nom="infil">0.0</colonne>
 			<colonne nom="epd">10</colonne>
 		</tableau>
 				<tableau nb_colonnes="8" nom="horizon 1">
-			<colonne nom="epc">10.0</colonne>
-			<colonne nom="HCCF">6.6153855</colonne>
-			<colonne nom="HMINF">1.923077</colonne>
-			<colonne nom="DAF">1.3</colonne>
-			<colonne nom="cailloux">0.00</colonne>
-			<colonne nom="typecailloux">1</colonne>
-			<colonne nom="infil">0.0</colonne>
-			<colonne nom="epd">10</colonne>
-		</tableau>
-				<tableau nb_colonnes="8" nom="horizon 1">
-			<colonne nom="epc">105.0</colonne>
-			<colonne nom="HCCF">6.1908865</colonne>
-			<colonne nom="HMINF">1.8947043</colonne>
-			<colonne nom="DAF">1.4375</colonne>
+			<colonne nom="epc">15.0</colonne>
+			<colonne nom="HCCF">20.689655</colonne>
+			<colonne nom="HMINF">6.034483</colonne>
+			<colonne nom="DAF">1.16</colonne>
 			<colonne nom="cailloux">0.00</colonne>
 			<colonne nom="typecailloux">1</colonne>
 			<colonne nom="infil">0.0</colonne>
@@ -99,9 +89,9 @@
 		</tableau>
 				<tableau nb_colonnes="8" nom="horizon 1">
 			<colonne nom="epc">30.0</colonne>
-			<colonne nom="HCCF">8.965517</colonne>
-			<colonne nom="HMINF">2.0</colonne>
-			<colonne nom="DAF">1.45</colonne>
+			<colonne nom="HCCF">12.727272</colonne>
+			<colonne nom="HMINF">3.305785</colonne>
+			<colonne nom="DAF">1.21</colonne>
 			<colonne nom="cailloux">0.00</colonne>
 			<colonne nom="typecailloux">1</colonne>
 			<colonne nom="infil">0.0</colonne>
@@ -109,9 +99,19 @@
 		</tableau>
 				<tableau nb_colonnes="8" nom="horizon 1">
 			<colonne nom="epc">30.0</colonne>
-			<colonne nom="HCCF">21.499998</colonne>
-			<colonne nom="HMINF">5.833333</colonne>
-			<colonne nom="DAF">1.2</colonne>
+			<colonne nom="HCCF">7.3983736</colonne>
+			<colonne nom="HMINF">2.6016262</colonne>
+			<colonne nom="DAF">1.23</colonne>
+			<colonne nom="cailloux">0.00</colonne>
+			<colonne nom="typecailloux">1</colonne>
+			<colonne nom="infil">0.0</colonne>
+			<colonne nom="epd">10</colonne>
+		</tableau>
+				<tableau nb_colonnes="8" nom="horizon 1">
+			<colonne nom="epc">90.0</colonne>
+			<colonne nom="HCCF">6.641222</colonne>
+			<colonne nom="HMINF">2.4427483</colonne>
+			<colonne nom="DAF">1.31</colonne>
 			<colonne nom="cailloux">0.00</colonne>
 			<colonne nom="typecailloux">1</colonne>
 			<colonne nom="infil">0.0</colonne>

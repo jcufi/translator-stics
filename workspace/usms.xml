@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <usms>
-    <usm nom="UFGA8201MZ">
-        <datedebut>56</datedebut>
-        <datefin>365</datefin>
-        <finit>IBMZ910014_ini.xml</finit>
-        <nomsol>IBMZ910014</nomsol>
-        <fstation>Gainesville_sta.xml</fstation>
+    <usm nom="KSAS8101WH_1">
+        <datedebut>279</datedebut>
+        <datefin>730</datefin>
+        <finit>IBWH980018_ini.xml</finit>
+        <nomsol>IBWH980018</nomsol>
+        <fstation>KSAS8101_sta.xml</fstation>
         <!-- loop on the total climate files -->
-                <fclim1>C:\jucufi-local\workspaceAgmip\translator-stics\workspace\Gainesville.1982</fclim1>
+                <fclim1>C:\jucufi-local\workspaceAgmip\translator-stics\workspace\KSAS8101.1981</fclim1>
+                <fclim2>C:\jucufi-local\workspaceAgmip\translator-stics\workspace\KSAS8101.1982</fclim2>
                 <fclim2>null</fclim2>
         <!-- if the crop is on 1 year then culturean = 1 else 0 -->
         <culturean>0</culturean>
         <nbplantes>1</nbplantes>
         <codesimul>0</codesimul>
         <plante dominance="1">
-            <fplt>corn_plt.xml    </fplt>
-            <ftec>MZ_tec.xml</ftec>
+            <fplt>code_unknown</fplt>
+            <ftec>nocrid_tec.xml</ftec>
             <flai>null</flai>
         </plante>
         <plante dominance="2">

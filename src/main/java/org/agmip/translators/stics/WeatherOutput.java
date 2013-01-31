@@ -21,9 +21,11 @@ import org.agmip.translators.stics.util.VelocityUtil;
 import org.agmip.util.MapUtil;
 import org.agmip.util.MapUtil.BucketEntry;
 import org.apache.velocity.context.Context;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WeatherOutput implements TranslatorOutput {
-
+	private static final Logger log = LoggerFactory.getLogger(WeatherOutput.class);
 	public static String WEATHER_DATA_SEPARATOR = " ";
 	public static String NEW_LINE = "\n";
 	public static int DATE_INDEX = 1;
@@ -204,17 +206,17 @@ public class WeatherOutput implements TranslatorOutput {
 			firstLevelStationParameters.put("anga", anga);
 			firstLevelStationParameters.put("angb", angb);
 			context = VelocityUtil.fillVelocityContext(firstLevelStationParameters, null);
-			content = VelocityUtil.runVelocity(context, STATION_TEMPLATE_FILE);
+			content = VelocityUtil.getInstance().runVelocity(context, STATION_TEMPLATE_FILE);
 			stationFile = SticsUtil.newFile(content, filePath, city+ "_sta.xml");
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error(e.toString());
 		} finally {
 			try {
 				writer.flush();
 				writer.close();
 			} catch (IOException e) {
-				System.err.println("Unable to generate climatic files");
-				e.printStackTrace();
+				log.error("Unable to generate climatic files");
+				log.error(e.toString());
 			}
 		}
 	}

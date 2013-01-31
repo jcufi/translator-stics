@@ -32,7 +32,6 @@
 		<developer>
 			<name>AgMIP Contributors</name>
 		</developer>
-		<!-- fill out the following fields: name, email, roles -> role -->
 	</developers>
 
 	<dependencies>
@@ -45,6 +44,11 @@
 			<groupId>org.agmip</groupId>
 			<artifactId>agmip-core</artifactId>
 			<version>0.13-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.9</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

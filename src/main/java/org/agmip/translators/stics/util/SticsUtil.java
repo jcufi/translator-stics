@@ -15,19 +15,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.agmip.translators.stics.SticsOutput;
 import org.agmip.translators.stics.WeatherOutput;
 import org.agmip.util.JSONAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SticsUtil {
-
-	public static String UNKNOWN_DEFAULT_VALUE = "unknown-default-value";
+	private static String UNKNOWN_DEFAULT_VALUE = "unknown-default-value";
+	private static final Logger log = LoggerFactory.getLogger(SticsUtil.class);
 	public static LinkedHashMap<String, String> defaultvalues;
 	static {
 		try {
 			defaultvalues = SticsUtil.getDefaultValues();
 		} catch (IOException e) {
-			System.err.println("Default values cannot be loaded");
-			e.printStackTrace();
+			log.error("Default values cannot be loaded");
+			log.error(e.toString());
 		}
 	}
 
@@ -50,7 +53,7 @@ public class SticsUtil {
 	 * @return a string containing the data file
 	 */
 	public static String getDataFromTestFile(String file) {
-		InputStream inputStream = WeatherOutput.class.getResourceAsStream(file);
+		InputStream inputStream = SticsOutput.class.getResourceAsStream(file);
 		StringBuffer strBuffer = new StringBuffer();
 		if (inputStream != null) {
 			BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream));
@@ -59,7 +62,7 @@ public class SticsUtil {
 					strBuffer.append(buffer.readLine());
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				log.error(e.toString());
 			}
 		}
 		return strBuffer.toString();
@@ -127,14 +130,14 @@ public class SticsUtil {
 		return defaultProperties;
 	}
 
-	public static void defaultValueFor(List<String> params, LinkedHashMap<String, String> values){
+	public static void defaultValueFor(List<String> params, LinkedHashMap<String, String> values) {
 		for (String param : params) {
-			if(!values.containsKey(param)){
+			if (!values.containsKey(param)) {
 				values.put(param, defaultValue(param));
 			}
 		}
 	}
-	
+
 	public static void convertValues(LinkedHashMap<String, String> values) {
 		for (String key : values.keySet()) {
 			values.put(key, convert(key, values.get(key)));
@@ -156,7 +159,7 @@ public class SticsUtil {
 
 	public static void convertFirstLevelRecords(LinkedHashMap<String, String> values) {
 		convertValues(values);
-		
+
 	}
 
 	public static void convertNestedRecords(ArrayList<LinkedHashMap<String, String>> dataList, List<String> paramWithDefaultValues) {
@@ -172,8 +175,8 @@ public class SticsUtil {
 		try {
 			data = JSONAdapter.fromJSON(getDataFromTestFile(jsonFile));
 		} catch (IOException e) {
-			System.err.println("Unable to read test data, " + jsonFile);
-			e.printStackTrace();
+			log.info("Unable to read test data, " + jsonFile);
+			log.error(e.toString());
 		}
 		return data;
 	}

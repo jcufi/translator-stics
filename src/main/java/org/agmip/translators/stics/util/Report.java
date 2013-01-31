@@ -2,6 +2,12 @@ package org.agmip.translators.stics.util;
 
 import java.util.HashMap;
 
+/**
+ * Class used to build translator report at the end of the process.
+ * 
+ * @author jucufi
+ * 
+ */
 public class Report {
 
 	public static Report getInstance() {
