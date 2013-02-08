@@ -2,7 +2,7 @@ package org.agmip.translators.stics;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
@@ -22,14 +22,14 @@ public class ManagementOutputTest extends TestCase{
 		converter = new ManagementOutput();
 	}
 	
-	public ArrayList<LinkedHashMap<String, String>> getFertilizerList(String jsonFile){
+	public ArrayList<HashMap<String, String>> getFertilizerList(String jsonFile){
 		
 		// Get JSON data
 		Map data = SticsUtil.getDataFrom(jsonFile);
 		BucketEntry managementBucket = MapUtil.getBucket(data, "management");
-		ArrayList<LinkedHashMap<String, String>> fertilizerList;
-		fertilizerList = new ArrayList<LinkedHashMap<String, String>>();
-		for (LinkedHashMap<String, String> mgmtData : managementBucket.getDataList()) {
+		ArrayList<HashMap<String, String>> fertilizerList;
+		fertilizerList = new ArrayList<HashMap<String, String>>();
+		for (HashMap<String, String> mgmtData : managementBucket.getDataList()) {
 			String key = mgmtData.get("event");
 			if (key.equals("fertilizer")) {
 				// We need to sort fertilizer data by date
@@ -48,7 +48,7 @@ public class ManagementOutputTest extends TestCase{
 	
 	
 	public void testGenerate(){
-		ArrayList<LinkedHashMap<String, String>> fertilizerList;
+		ArrayList<HashMap<String, String>> fertilizerList;
 		fertilizerList = getFertilizerList(jsonTestFile1);
 		//String data = converter.generateTecfile(null, fertilizerList, null);
 		//System.out.println(data);
@@ -58,7 +58,7 @@ public class ManagementOutputTest extends TestCase{
 	@Test
 	public void testSortByDate() {
 		String outputDir = System.getProperty("user.dir") + File.separator + "workspace";
-		ArrayList<LinkedHashMap<String, String>> fertilizerList = getFertilizerList(jsonTestFile1);
+		ArrayList<HashMap<String, String>> fertilizerList = getFertilizerList(jsonTestFile1);
 		String[] date = {"19820101","19820105","19820105","19820110","19820201","20000101"};
 		converter.sortListByDate(fertilizerList);
 		for(int i=0; i<date.length; i++){

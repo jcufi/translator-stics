@@ -3,8 +3,9 @@ package org.agmip.translators.stics;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 
+import org.agmip.translators.soil.LayerReducerUtil;
 import org.junit.Test;
 
 public class SoilAndInitOutputTest {
@@ -16,9 +17,9 @@ public class SoilAndInitOutputTest {
 		// ini info
 		//[{icbl=15, ich2o=.205, icnh4=3.4, icno3=9.8}, {icbl=30, ich2o=.17, icnh4=3.2, icno3=7.3}, {icbl=60, ich2o=.092, icnh4=2.5, icno3=5.1}, {icbl=90, ich2o=.065, icnh4=2.2, icno3=4.7}, {icbl=120, ich2o=.066, icnh4=2.7, icno3=4.3}, {icbl=150, ich2o=.066, icnh4=2.7, icno3=4.3}, {icbl=180, ich2o=.066, icnh4=2.7, icno3=4.3}]
 	
-		ArrayList<LinkedHashMap<String, String>> soilsData = new ArrayList<LinkedHashMap<String, String>>();
-		LinkedHashMap<String, String> soilInfo1 = new LinkedHashMap<String, String>();
-		LinkedHashMap<String, String> soilInfo2 = new LinkedHashMap<String, String>();
+		ArrayList<HashMap<String, String>> soilsData = new ArrayList<HashMap<String, String>>();
+		HashMap<String, String> soilInfo1 = new HashMap<String, String>();
+		HashMap<String, String> soilInfo2 = new HashMap<String, String>();
 		soilInfo1.put("sllb", "15");
 		soilInfo1.put("slbdm", "1");
 		soilInfo2.put("sllb", "30");
@@ -26,9 +27,9 @@ public class SoilAndInitOutputTest {
 		soilsData.add(soilInfo1);
 		soilsData.add(soilInfo2);
 		
-		ArrayList<LinkedHashMap<String, String>> iniData = new ArrayList<LinkedHashMap<String, String>>();
-		LinkedHashMap<String, String> iniInfo1 = new LinkedHashMap<String, String>();
-		LinkedHashMap<String, String> iniInfo2 = new LinkedHashMap<String, String>();
+		ArrayList<HashMap<String, String>> iniData = new ArrayList<HashMap<String, String>>();
+		HashMap<String, String> iniInfo1 = new HashMap<String, String>();
+		HashMap<String, String> iniInfo2 = new HashMap<String, String>();
 		
 		iniInfo1.put("icbl", "15");
 		iniInfo1.put("icno3", "9.8");
@@ -38,9 +39,9 @@ public class SoilAndInitOutputTest {
 		iniData.add(iniInfo1);
 		iniData.add(iniInfo2);
 		
-		SoilAndInitOutput o = new SoilAndInitOutput();
-		o.mergeSoilAndInitializationData(soilsData, iniData);
-		for(LinkedHashMap<String, String> s: soilsData){
+		SoilAndInitOutput o = new SoilAndInitOutput(System.getProperty("user.dir"));
+		LayerReducerUtil.mergeSoilAndInitializationData(soilsData, iniData);
+		for(HashMap<String, String> s: soilsData){
 			assertTrue(s.containsKey("icno3"));
 			assertTrue(s.containsKey("sllb"));
 			assertTrue(s.containsKey("slbdm"));

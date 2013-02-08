@@ -10,7 +10,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -24,7 +25,7 @@ import org.slf4j.LoggerFactory;
 public class SticsUtil {
 	private static String UNKNOWN_DEFAULT_VALUE = "unknown-default-value";
 	private static final Logger log = LoggerFactory.getLogger(SticsUtil.class);
-	public static LinkedHashMap<String, String> defaultvalues;
+	public static HashMap<String, String> defaultvalues;
 	static {
 		try {
 			defaultvalues = SticsUtil.getDefaultValues();
@@ -32,6 +33,31 @@ public class SticsUtil {
 			log.error("Default values cannot be loaded");
 			log.error(e.toString());
 		}
+	}
+	
+	public static void fill(ArrayList<HashMap<String, String>> list, String[] params, int size){
+		if(list.size() < size){
+			for(int i=list.size(); i < size; i++){
+				list.add(createDefaultMap(params));
+			}
+		}
+	}
+	
+
+	public static HashMap<String, String> createDefaultMap(String[] keys) {
+		HashMap<String, String> defaultMap = new HashMap<String, String>();
+		for (String k : keys) {
+			defaultMap.put(k, defaultValue(k));
+		}
+		return defaultMap;
+	}
+
+	public static ArrayList<HashMap<String, String>> createDefaultListOfMap(String[] keys, int listSize) {
+		ArrayList<HashMap<String, String>> defaultList = new ArrayList<HashMap<String, String>>();
+		for (int i = 0; i < listSize; i++) {
+			defaultList.add(createDefaultMap(keys));
+		}
+		return defaultList;
 	}
 
 	public static File newFile(String content, String filePath, String fileName) throws IOException {
@@ -75,9 +101,10 @@ public class SticsUtil {
 			// convert in m/s
 			result = Float.parseFloat(paramValue) / (24f * 60f * 60f) * 1000f;
 		} else if ("vprs".equals(paramName)) {
-			// convert kpascal in mb
+			// convert vapor pressure from kpascal to millibar
 			result = Float.parseFloat(paramValue) * 10f;
 		} else if ("sksat".equals(paramName)) {
+			// convert infil
 			result = Float.parseFloat(paramValue) * 10 * 24;
 		} else if ("sloc".equals(paramName)) {
 			result = Float.parseFloat(paramValue) / 1.8f / 9.52f;
@@ -86,12 +113,21 @@ public class SticsUtil {
 		} else if ("icrag".equals(paramName)) {
 			// convert in tons
 			result = Float.parseFloat(paramValue) / 1000f;
+		} else if ("pldp".equals(paramName)) {
+			// convert in mm
+			//result = Float.parseFloat(paramValue) / 10f;
+			//TODO valeurs incorrectes dans les données donc pas de convertion
+			result = Float.parseFloat(paramValue);
+		} else if ("plrs".equals(paramName)) {
+			// convert in cm
+			result = Float.parseFloat(paramValue) / 10f;
 		}
 		return (result == null) ? paramValue : result.toString();
 	}
 
 	public static String defaultValue(String key) {
 		String value;
+		// log.debug("Default value for "+key);
 		if (defaultvalues.containsKey(key)) {
 			value = defaultvalues.get(key);
 		} else {
@@ -113,11 +149,11 @@ public class SticsUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public static LinkedHashMap<String, String> getDefaultValues() throws IOException {
+	public static HashMap<String, String> getDefaultValues() throws IOException {
 		InputStream inputStream = WeatherOutput.class.getResourceAsStream("/default-stics-values.properties");
-		LinkedHashMap<String, String> defaultProperties;
+		HashMap<String, String> defaultProperties;
 		Properties properties;
-		defaultProperties = new LinkedHashMap<String, String>();
+		defaultProperties = new HashMap<String, String>();
 		properties = new Properties();
 		properties.load(inputStream);
 		for (Object property : properties.keySet()) {
@@ -129,8 +165,24 @@ public class SticsUtil {
 		}
 		return defaultProperties;
 	}
+	
+	
+	public static void populate(String[] defaultParam, ArrayList<HashMap<String, String>> list){
+		if(list.size() == 0){
+			list.add(SticsUtil.createDefaultMap(defaultParam));
+		}else{
+			// Check for each map in the list if the keys doesn't exist put the key and the default value
+			SticsUtil.defaultValueForList(defaultParam, list);
+		}
+	}
+	
+	public static void defaultValueForList(String[] params, ArrayList<HashMap<String, String>> values){
+		for (HashMap<String, String> e : values) {
+			defaultValueForMap(params, e);
+		}
+	}
 
-	public static void defaultValueFor(List<String> params, LinkedHashMap<String, String> values) {
+	public static void defaultValueForMap(String[] params, HashMap<String, String> values) {
 		for (String param : params) {
 			if (!values.containsKey(param)) {
 				values.put(param, defaultValue(param));
@@ -138,11 +190,20 @@ public class SticsUtil {
 		}
 	}
 
-	public static void convertValues(LinkedHashMap<String, String> values) {
+	public static void convertValues(HashMap<String, String> values) {
 		for (String key : values.keySet()) {
 			values.put(key, convert(key, values.get(key)));
 		}
 
+	}
+
+	public static String toWeatherId(String wstId) {
+		String stationId;
+		// = getValueOr(weatherBucket.getValues(), "wst_id",
+		// SticsUtil.defaultValue("wst_id"));
+		// Trick for stics , not allowed in station name
+		stationId = wstId.replaceAll(",", "_");
+		return stationId;
 	}
 
 	/**
@@ -157,15 +218,15 @@ public class SticsUtil {
 		return calendar.get(GregorianCalendar.DAY_OF_YEAR);
 	}
 
-	public static void convertFirstLevelRecords(LinkedHashMap<String, String> values) {
+	public static void convertFirstLevelRecords(HashMap<String, String> values) {
 		convertValues(values);
 
 	}
 
-	public static void convertNestedRecords(ArrayList<LinkedHashMap<String, String>> dataList, List<String> paramWithDefaultValues) {
-		for (LinkedHashMap<String, String> data : dataList) {
+	public static void convertNestedRecords(ArrayList<HashMap<String, String>> dataList, String[] paramWithDefaultValues) {
+		for (HashMap<String, String> data : dataList) {
 			convertValues(data);
-			SticsUtil.defaultValueFor(paramWithDefaultValues, data);
+			SticsUtil.defaultValueForMap(paramWithDefaultValues, data);
 		}
 	}
 

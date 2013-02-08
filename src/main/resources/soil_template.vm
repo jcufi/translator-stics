@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<sols>
 	<sol nom="$firstLevelFields.soil_id">
 		<param nom="argi">$firstLevelFields.slcly</param>
 		<param nom="norg">$firstLevelFields.sloc</param>
@@ -80,4 +78,3 @@
 		</tableau>
 		#end
 	</sol>
-</sols>

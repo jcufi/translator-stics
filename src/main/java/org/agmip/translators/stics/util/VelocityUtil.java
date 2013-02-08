@@ -3,10 +3,9 @@ package org.agmip.translators.stics.util;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 
-import org.agmip.translators.stics.SoilAndInitOutput;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -63,6 +62,7 @@ public class VelocityUtil {
 				log.error("Example : Syntax error in template " + templateFile + ":" + pee);
 			}
 			BufferedWriter writer = new BufferedWriter(strWritter);
+			
 			if (template != null) {
 				template.merge(context, writer);
 			}
@@ -93,7 +93,7 @@ public class VelocityUtil {
 	 * @param nestedValues
 	 * @return
 	 */
-	public static VelocityContext fillVelocityContext(LinkedHashMap<String, String> firstLevelValues, List<LinkedHashMap<String, String>> nestedValues) {
+	public static VelocityContext fillVelocityContext(HashMap<String, String> firstLevelValues, List<HashMap<String, String>> nestedValues) {
 		VelocityContext context = newVelocitycontext();
 		context.put("listOfMaps", nestedValues);
 		context.put("firstLevelFields", firstLevelValues);

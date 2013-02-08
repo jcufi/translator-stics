@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -30,18 +30,23 @@ public class WeatherOutput implements TranslatorOutput {
 	public static String NEW_LINE = "\n";
 	public static int DATE_INDEX = 1;
 	public static String STATION_TEMPLATE_FILE = "/sta_template.vm";
-	
+
 	private BufferedWriter writer;
 	private String previousYear;
-	private ArrayList<String> climaticFiles;
-	private File stationFile;
+	private HashMap<String, ArrayList<String>> weatherFilesById;
+	private HashMap<String, String> stationFilesById;
 
-	public ArrayList<String> getClimaticFiles() {
-		return climaticFiles;
+	public HashMap<String, ArrayList<String>> getWeatherFilesById() {
+		return weatherFilesById;
+	}
+
+	public HashMap<String, String> getStationFilesById() {
+		return stationFilesById;
 	}
 
 	public WeatherOutput() {
-		climaticFiles = new ArrayList<String>();
+		weatherFilesById = new HashMap<String, ArrayList<String>>();
+		stationFilesById = new HashMap<String, String>();
 	}
 
 	/**
@@ -65,7 +70,7 @@ public class WeatherOutput implements TranslatorOutput {
 		int julianDay;
 		dateResult = null;
 		julianDay = 0;
-		
+
 		buffer.append(stationName);
 		buffer.append(WEATHER_DATA_SEPARATOR);
 		for (int i = 0; i < params.length; i++) {
@@ -81,7 +86,7 @@ public class WeatherOutput implements TranslatorOutput {
 					dateResult = srcDateFormat.parse(paramValue);
 					buffer.append(newDateFormat.format(dateResult) + separator);
 				} catch (Exception e) {
-					e.printStackTrace();
+					log.error(e.getMessage());
 				}
 				// Write julian day
 				julianDay = SticsUtil.getJulianDay(dateResult);
@@ -93,8 +98,6 @@ public class WeatherOutput implements TranslatorOutput {
 		// Return the line
 		return buffer.toString();
 	}
-
-	
 
 	/**
 	 * Return a new LinkedList filled with values taken from the input
@@ -119,42 +122,46 @@ public class WeatherOutput implements TranslatorOutput {
 
 	/**
 	 * Create a new clim file
+	 * 
 	 * @param fileName
 	 * @param year
 	 * @throws IOException
 	 */
-	private void newClimaticFile(String fileName, String year) throws IOException {
+	private void newClimaticFile(String stationId, String fileName, String year) throws IOException {
 		File currentFile;
 		currentFile = new File(fileName);
-		climaticFiles.add(fileName);
+		log.info("Generating weather file : "+currentFile.getName());
+		weatherFilesById.get(stationId).add(currentFile.getName());
 		writer = new BufferedWriter(new FileWriter(currentFile));
 		previousYear = year;
 	}
 
 	/**
 	 * Write data, only 1 year by climatic file
-	 * @param stationName
+	 * 
+	 * @param stationId
 	 * @param year
 	 * @param data
 	 * @throws IOException
 	 */
-	public void outputData(String filePath, String stationName, String year, String data) throws IOException {
+	public void outputData(String filePath, String stationId, String year, String data) throws IOException {
 		String fileName;
 		String city;
-		city = stationName.split("_")[0];
+		city = stationId.split("_")[0];
 		fileName = filePath + File.separator + city + "." + year;
 		if (writer == null) {
-			newClimaticFile(fileName, year);
+			newClimaticFile(stationId, fileName, year);
 		} else if (!previousYear.equals(year)) {
 			// we need a new file
 			writer.close();
-			newClimaticFile(fileName, year);
+			newClimaticFile(stationId, fileName, year);
 		}
 		writer.write(data + NEW_LINE);
 	}
 
 	/**
 	 * Where is my year ?
+	 * 
 	 * @param line
 	 * @return
 	 */
@@ -163,17 +170,13 @@ public class WeatherOutput implements TranslatorOutput {
 		return fields[DATE_INDEX];
 	}
 
-	public File getStationFile(){
-		return stationFile;
-	}
-	
 	/**
 	 * Main method for the converter
 	 */
 	public void writeFile(String filePath, Map data) {
-		BucketEntry weatherBucket;
-		LinkedHashMap<String, String> firstLevelStationParameters;
-		String stationName;
+
+		HashMap<String, String> firstLevelStationParameters;
+		String stationId;
 		String city;
 		String content;
 		Context context;
@@ -181,39 +184,44 @@ public class WeatherOutput implements TranslatorOutput {
 		try {
 			/** 1 - Generate climatic files **/
 			// Extract weather values
-			weatherBucket = MapUtil.getBucket(data, "weather");
-			// Extract station name first
-			stationName = getValueOr(weatherBucket.getValues(), "wst_name", SticsUtil.defaultValue("wst_name"));
-			// Trick for stics , not allowed in station name
-			stationName = stationName.replaceAll(",", "_");
-			city = stationName.split("_")[0];
-			// Write values
-			for (Map<String, String> record : weatherBucket.getDataList()) {
-				String line = formatLine(stationName, record);
-				String year = getYear(line);
-				outputData(filePath, stationName, year, line);
+			ArrayList<BucketEntry> listofWeather = MapUtil.getPackageContents(data, "weathers");
+			for (BucketEntry weatherBucket : listofWeather) {
+				// Extract station name first
+				stationId = SticsUtil.toWeatherId(weatherBucket.getValues().get("wst_id"));
+				weatherFilesById.put(stationId, new ArrayList<String>());
+				city = stationId.split("_")[0];
+				// Write values
+				for (Map<String, String> record : weatherBucket.getDataList()) {
+					String line = formatLine(stationId, record);
+					String year = getYear(line);
+					outputData(filePath, stationId, year, line);
+				}
+				/** 2 - Generate station files **/
+				refht = getValueOr(weatherBucket.getValues(), "refht", SticsUtil.defaultValue("refht"));
+				fl_lat = getValueOr(data, "fl_lat", SticsUtil.defaultValue("fl_lat"));
+				flele = getValueOr(data, "flele", SticsUtil.defaultValue("flele"));
+				anga = getValueOr(data, "anga", SticsUtil.defaultValue("anga"));
+				angb = getValueOr(data, "angb", SticsUtil.defaultValue("angb"));
+				firstLevelStationParameters = new HashMap<String, String>();
+				firstLevelStationParameters.put("refht", refht);
+				firstLevelStationParameters.put("fl_lat", fl_lat);
+				firstLevelStationParameters.put("flele", flele);
+				firstLevelStationParameters.put("anga", anga);
+				firstLevelStationParameters.put("angb", angb);
+				context = VelocityUtil.fillVelocityContext(firstLevelStationParameters, null);
+				content = VelocityUtil.getInstance().runVelocity(context, STATION_TEMPLATE_FILE);
+				File stationFile = SticsUtil.newFile(content, filePath, city + "_sta.xml");
+				log.info("Generating station file : "+stationFile.getName());
+				stationFilesById.put(stationId, stationFile.getName());
 			}
-			/** 2 - Generate station files **/
-			refht = getValueOr(weatherBucket.getValues(), "refht", SticsUtil.defaultValue("refht"));
-			fl_lat = getValueOr(data, "fl_lat", SticsUtil.defaultValue("fl_lat"));
-			flele = getValueOr(data, "flele", SticsUtil.defaultValue("flele"));
-			anga = getValueOr(data, "anga", SticsUtil.defaultValue("anga"));
-			angb = getValueOr(data, "angb", SticsUtil.defaultValue("angb"));
-			firstLevelStationParameters = new LinkedHashMap<String, String>();
-			firstLevelStationParameters.put("refht", refht);
-			firstLevelStationParameters.put("fl_lat", fl_lat);
-			firstLevelStationParameters.put("flele", flele);
-			firstLevelStationParameters.put("anga", anga);
-			firstLevelStationParameters.put("angb", angb);
-			context = VelocityUtil.fillVelocityContext(firstLevelStationParameters, null);
-			content = VelocityUtil.getInstance().runVelocity(context, STATION_TEMPLATE_FILE);
-			stationFile = SticsUtil.newFile(content, filePath, city+ "_sta.xml");
-		} catch (IOException e) {
+		} catch (Exception e) {
 			log.error(e.toString());
 		} finally {
 			try {
-				writer.flush();
-				writer.close();
+				if (writer != null) {
+					writer.flush();
+					writer.close();
+				}
 			} catch (IOException e) {
 				log.error("Unable to generate climatic files");
 				log.error(e.toString());

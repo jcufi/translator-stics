@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <usms>
-    <usm nom="$exname">
-        <datedebut>$icdat</datedebut>
-        <datefin>$dateFin</datefin>
-        <finit>$init_file</finit>
-        <nomsol>$soil_id</nomsol>
-        <fstation>$station_file</fstation>
+	#foreach($exp in $experiments)
+    <usm nom="$exp.expId">
+        <datedebut>$exp.icdat</datedebut>
+        <datefin>$exp.endDate</datefin>
+        <finit>$exp.iniFile</finit>
+        <nomsol>$exp.soilId</nomsol>
+        <fstation>$exp.stationFile</fstation>
         <!-- loop on the total climate files -->
-        #foreach($climFileName in $clim_files)
+        #foreach($climFileName in $exp.weatherFiles)
         <fclim$foreach.count>$climFileName</fclim$foreach.count>
         #end
-        <fclim2>null</fclim2>
         <!-- if the crop is on 1 year then culturean = 1 else 0 -->
         <culturean>0</culturean>
         <nbplantes>1</nbplantes>
         <codesimul>0</codesimul>
         <plante dominance="1">
-            <fplt>$plant_file</fplt>
-            <ftec>$tec_file</ftec>
+            <fplt>$exp.plantFile</fplt>
+            <ftec>$exp.mngmtFile</ftec>
             <flai>null</flai>
         </plante>
         <plante dominance="2">
@@ -26,4 +26,5 @@
             <flai>null</flai>
         </plante>
     </usm>
+     #end
 </usms>

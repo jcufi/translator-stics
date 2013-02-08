@@ -10,7 +10,6 @@ import java.util.Map;
 
 import org.agmip.translators.stics.util.SticsUtil;
 import org.agmip.util.JSONAdapter;
-import org.agmip.util.MapUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

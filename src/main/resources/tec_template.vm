@@ -12,36 +12,39 @@
                 <colonne nom="eaures"/>
             </ta_entete>
             <intervention nb_colonnes="7">
-                <colonne nom="julres">$initial_condition.icdat</colonne>
-                <colonne nom="coderes">$initial_condition.icpcr</colonne>
-                <colonne nom="qres">$initial_condition.icrag</colonne>
-                <colonne nom="Crespc">$initial_condition.icrli</colonne>
+                <colonne nom="julres">$initial_conditions.icdat</colonne>
+                <colonne nom="coderes">$initial_conditions.icpcr</colonne>
+                <colonne nom="qres">$initial_conditions.icrag</colonne>
+                <colonne nom="Crespc">$initial_conditions.icrli</colonne>
                 <colonne nom="CsurNres">60.00</colonne>
-                <colonne nom="Nminres">$initial_condition.icrn</colonne>
+                <colonne nom="Nminres">$initial_conditions.icrn</colonne>
                 <colonne nom="eaures">0.00</colonne>
             </intervention>
         </ta>
     </formalisme>
     <!-- tillage -->
+    
     <formalisme nom="soil tillage">
-        <ta nb_interventions="1" nom="interventions">
+        <ta nb_interventions="$tillage.size()" nom="interventions">
             <ta_entete nb_colonnes="3">
                 <colonne nom="jultrav"/>
                 <colonne nom="profres"/>
                 <colonne nom="proftrav"/>
             </ta_entete>
+            #foreach($item in $tillage)
             <intervention nb_colonnes="3">
-                <colonne nom="jultrav">$tillage.date <!-- jjulien --> </colonne>
+                <colonne nom="jultrav">$item.date <!-- jjulien --> </colonne>
                 <colonne nom="profres">$initial_condition.icrdp</colonne>
-                <colonne nom="proftrav">$tillage.tidep</colonne>
+                <colonne nom="proftrav">$item.tidep</colonne>
             </intervention>
+            #end
         </ta>
     </formalisme>
     
     <formalisme nom="sowing"> <!-- section "planting" -->
         <param format="integer" max="731" min="1" nom="iplt0"> $planting.date</param>
         <param format="real" max="10.0" min="0.0" nom="profsem">$planting.pldp</param>
-        <param format="real" max="2000.0" min="0.05" nom="densitesem">$planting.plpoe</param>
+        <param format="real" max="2000.0" min="0.05" nom="densitesem">$planting.plpop</param>
         <param format="integer" max="200" min="0" nom="variete">1</param>
         <option choix="2" nom="planting structure (if radiative transfer)" nomParam="codetradtec">
             <choix code="1" nom="yes">
@@ -80,7 +83,7 @@
     
     
     <formalisme nom="irrigation">
-        <param format="real" max="1.0" min="0.2" nom="effirr">1</param>
+        <param format="real" max="1.0" min="0.2" nom="effirr">$ireff</param>
         <option choix="2" nom="automatic calculation of irrigations" nomParam="codecalirrig">
             <choix code="1" nom="yes">
                 <param format="real" max="1.0" min="0.2" nom="ratiol">0.00000</param>
@@ -97,7 +100,6 @@
                         <colonne nom="julapI_or_sum_upvt"/>
                         <colonne nom="amount"/>
                     </ta_entete>
-                   
 						#foreach($item in $irrigation)
 						 <intervention nb_colonnes="2">
                         <colonne nom="julapI_or_sum_upvt">$item.date</colonne>
@@ -108,21 +110,21 @@
                 </ta>
             </choix>
         </option>
-        <option choix="1" nom="location of irrigation" nomParam="codlocirrig">
+        <option choix="$irop" nom="location of irrigation" nomParam="codlocirrig">
             <choix code="1" nom="above foliage"/>
             <choix code="2" nom="under foliage"/>
             <choix code="3" nom="in the soil">
-                <param format="integer" max="30" min="0" nom="locirrig">0</param>
+                <param format="integer" max="30" min="0" nom="locirrig">$irmdp</param>
             </choix>
         </option>
-        <param format="real" max="1000.0" min="10.0" nom="profmes">50</param>
+        <param format="real" max="1000.0" min="10.0" nom="profmes">$dtwt</param>
     </formalisme>
     
     
     <formalisme nom="fertilisation">
     <!-- 1 type ds stics -->
-        <param format="integer" max="8" min="0" nom="engrais">$fertilizer[0].fecd</param>
-        <param format="real" max="0.2" min="0.0" nom="concirr">0</param>
+        <param format="integer" max="8" min="0" nom="engrais">$fecd</param>
+        <param format="real" max="0.2" min="0.0" nom="concirr">$irn</param>
         <option choix="2" nom="date of fertilisation" nomParam="codedateappN">
             <choix code="1" nom="sum of upvt"/>
             <choix code="2" nom="julian days"/>
@@ -149,10 +151,10 @@
             
             
         </ta>
-        <option choix="$fertilizer[0].feacd" nom="location of mineral nitrogen inputs" nomParam="codlocferti">
+        <option choix="$feacd" nom="location of mineral nitrogen inputs" nomParam="codlocferti">
             <choix code="1" nom="at soil surface"/>
             <choix code="2" nom="below soil surface">
-                <param format="integer" max="30" min="0" nom="locferti">$fertilizer[0].fedep</param>
+                <param format="integer" max="30" min="0" nom="locferti">$fedep</param>
             </choix>
         </option>
         <param format="character" nom="ressuite">straw+roots</param>
@@ -331,6 +333,7 @@
                 <param format="real" max="100.0" min="0.0" nom="profhumrecolteuse">30.00000</param>
                 <param format="real" max="2.0" min="0.8" nom="darecolte">1.60000</param>
             </choix>
+            <choix code="2" nom="no"/>
         </option>
         <option choix="2" nom="nb of layers affected by the compaction" nomParam="codeDSTnbcouche">
             <choix code="1" nom="1"/>

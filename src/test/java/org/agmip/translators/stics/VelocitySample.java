@@ -1,7 +1,7 @@
 package org.agmip.translators.stics;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,10 +15,10 @@ public class VelocitySample {
 
 	public static void main(String[] args) {
 		BucketEntry initialConditionBucket;
-		LinkedHashMap<String, String> firstLevelSoilData;
-		ArrayList<LinkedHashMap<String, String>> aggregatedSoilData;
-		LinkedHashMap<String, String> firstLevelData;
-		List<LinkedHashMap<String, String>> aggregatedData;
+		HashMap<String, String> firstLevelSoilData;
+		ArrayList<HashMap<String, String>> aggregatedSoilData;
+		HashMap<String, String> firstLevelData;
+		List<HashMap<String, String>> aggregatedData;
 		
 		
 		Map data = SticsUtil.getDataFrom("/test-management.json");
@@ -28,7 +28,7 @@ public class VelocitySample {
 		aggregatedData = initialConditionBucket.getDataList();
 		
 		VelocityContext velocityContext = VelocityUtil.fillVelocityContext(firstLevelData, aggregatedData);
-		VelocityUtil.runVelocity(velocityContext, "test.vm");
+		//VelocityUtil.runVelocity(velocityContext, "test.vm");
 		
 		
 	}
