@@ -115,9 +115,8 @@ public class SticsUtil {
 			result = Float.parseFloat(paramValue) / 1000f;
 		} else if ("pldp".equals(paramName)) {
 			// convert in mm
-			//result = Float.parseFloat(paramValue) / 10f;
-			//TODO valeurs incorrectes dans les données donc pas de convertion
-			result = Float.parseFloat(paramValue);
+			result = Float.parseFloat(paramValue) / 10f;
+			//TODO pldp in mm in the test data
 		} else if ("plrs".equals(paramName)) {
 			// convert in cm
 			result = Float.parseFloat(paramValue) / 10f;
