@@ -58,7 +58,6 @@ public class ManagementOutput implements TranslatorOutput {
 		for (BucketEntry soil : soilList) {
 			soilById.put(soil.getValues().get("soil_id"), soil);
 		}
-
 	}
 
 	public void writeFile(String file, Map data) {
@@ -77,7 +76,8 @@ public class ManagementOutput implements TranslatorOutput {
 			indexSoilById(data);
 			soilOut = new SoilAndInitOutput(file);
 			for (Map experiment : listOfExperiments) {
-				ExperimentInfo expInfo = new ExperimentInfo((String) experiment.get("exname"), (String) experiment.get("soil_id"), SticsUtil.toWeatherId((String) experiment.get("wst_id")));
+				ExperimentInfo expInfo = new ExperimentInfo((String) experiment.get("exname"), (String) experiment.get("soil_id"), SticsUtil.toWeatherId((String) experiment
+						.get("wst_id")));
 				log.info("Processing experiment : " + expInfo.getExpId());
 				// generating soil and initialization files
 				soilOut.writeFile(experiment, expInfo.getExpId(), soilById.get(expInfo.getSoilId()));
@@ -120,11 +120,9 @@ public class ManagementOutput implements TranslatorOutput {
 				}
 				// TODO verifier le mapping
 				String crid = mgmtDataByEvent.get(EVENT_PLANTING).get("crid") == null ? SticsUtil.defaultValue("crid") : mgmtDataByEvent.get(EVENT_PLANTING).get("crid");
-				String icpcr = IcasaCode.toSticsCode(initialConditions.get("icpcr"));
+				String icpcr = IcasaCode.toSticsCode(MapUtil.getValueOr(initialConditions, "icpcr", SticsUtil.defaultValue("icpcr")));
 				initialConditions.put("icpcr", icpcr == null ? IcasaCode.toSticsCode(crid) : icpcr);
-				
-				
-				
+
 				// We need to sort fertilizer data by date
 				sortListByDate(fertilizerList);
 				// Convert date in julian day
@@ -133,7 +131,7 @@ public class ManagementOutput implements TranslatorOutput {
 				convertListOfDate(tillageList);
 				convertDate(mgmtDataByEvent.get(EVENT_HARVEST));
 				convertDate(mgmtDataByEvent.get(EVENT_PLANTING));
-				
+
 				String content = generateTecfile(mgmtDataByEvent, fertilizerList, initialConditions, irigationList, tillageList);
 
 				expInfo.setCropId(crid);
@@ -149,29 +147,32 @@ public class ManagementOutput implements TranslatorOutput {
 	}
 
 	/**
-	 * if the list contains at least one element take it to put values into the context
-	 * else take the default value
+	 * if the list contains at least one element take it to put values into the context else take the default value
+	 * 
 	 * @param values
 	 * @param params
 	 */
-	private void defaultIfEmpty(ArrayList<HashMap<String, String>> values, String[] params, VelocityContext context){
-		
-		if(values.size() == 0){
-			for(String p : params){
-				context.put(p, SticsUtil.defaultValue(p));	
+	private void defaultIfEmpty(ArrayList<HashMap<String, String>> values, String[] params, VelocityContext context) {
+
+		if (values.size() == 0) {
+			for (String p : params) {
+				context.put(p, SticsUtil.defaultValue(p));
 			}
-		}else {
-			for(String p : params){
-				context.put(p, values.get(0).get(p));	
+		} else {
+			for (String p : params) {
+				context.put(p, values.get(0).get(p));
 			}
 		}
 	}
-	
-	
+
 	private void computeExperimentDuration(HashMap<String, String> initialConditions, Map experiment, ExperimentInfo expInfo) {
 		try {
+			if (initialConditions.get("icdat") == null) {
+				log.error("The icdat is not avalaible for parsing");
+				return;
+			}
 			Date date = formatter.parse((String) initialConditions.get("icdat"));
-			int duration = Integer.parseInt((String) experiment.get("exp_dur"));
+			int duration = Integer.parseInt((String) MapUtil.getValueOr(experiment, "exp_dur", SticsUtil.defaultValue("exp_dur")));
 			expInfo.setDuration(duration);
 			String julianDaydate = String.valueOf(SticsUtil.getJulianDay(date));
 			initialConditions.put("icdat", julianDaydate);
@@ -191,11 +192,12 @@ public class ManagementOutput implements TranslatorOutput {
 			}
 		}
 	}
-	String[] defaultParamIrrigation = new String[] { "ireff", "irop", "irmdp", "dtwt", "irn"};
-	String[] defaultParamFertilization = new String[] { "fedep", "feacd", "irn", "fecd"};
-	
-	public String generateTecfile(HashMap<String, HashMap<String, String>> mgmtDataByevent, ArrayList<HashMap<String, String>> fertilizerList, HashMap<String, String> initialConditions,
-			ArrayList<HashMap<String, String>> irrigationList,ArrayList<HashMap<String, String>> tillageList) {
+
+	String[] defaultParamIrrigation = new String[] { "ireff", "irop", "irmdp", "dtwt", "irn" };
+	String[] defaultParamFertilization = new String[] { "fedep", "feacd", "irn", "fecd" };
+
+	public String generateTecfile(HashMap<String, HashMap<String, String>> mgmtDataByevent, ArrayList<HashMap<String, String>> fertilizerList,
+			HashMap<String, String> initialConditions, ArrayList<HashMap<String, String>> irrigationList, ArrayList<HashMap<String, String>> tillageList) {
 		VelocityContext context = VelocityUtil.newVelocitycontext();
 		defaultIfEmpty(fertilizerList, defaultParamFertilization, context);
 		defaultIfEmpty(irrigationList, defaultParamIrrigation, context);
@@ -236,9 +238,8 @@ public class ManagementOutput implements TranslatorOutput {
 
 			/**
 			 * 
-			 * @return a negative integer, zero, or a positive integer as the
-			 *         first argument is less than, equal to, or greater than
-			 *         the second.
+			 * @return a negative integer, zero, or a positive integer as the first argument is less than, equal to, or
+			 *         greater than the second.
 			 */
 			public int compare(HashMap<String, String> bucket1, HashMap<String, String> bucket2) {
 
