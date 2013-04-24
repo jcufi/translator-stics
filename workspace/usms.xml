@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <usms>
-    <usm nom="KSAS8101WH_1">
-        <datedebut>279</datedebut>
+	    <usm nom="MACH0006_1">
+        <datedebut>285</datedebut>
         <datefin>730</datefin>
-        <finit>IBWH980018_ini.xml</finit>
-        <nomsol>IBWH980018</nomsol>
-        <fstation>KSAS8101_sta.xml</fstation>
+        <finit>TOA0252082_MACH0006_1_ini.xml</finit>
+        <nomsol>TOA0252082</nomsol>
+        <fstation>MK07_sta.xml</fstation>
         <!-- loop on the total climate files -->
-                <fclim1>C:\jucufi-local\workspaceAgmip\translator-stics\workspace\KSAS8101.1981</fclim1>
-                <fclim2>C:\jucufi-local\workspaceAgmip\translator-stics\workspace\KSAS8101.1982</fclim2>
-                <fclim2>null</fclim2>
-        <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+                <fclim1>MK07.1999</fclim1>
+                <fclim2>MK07.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
         <culturean>0</culturean>
         <nbplantes>1</nbplantes>
         <codesimul>0</codesimul>
         <plante dominance="1">
-            <fplt>code_unknown</fplt>
-            <ftec>nocrid_tec.xml</ftec>
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0006_1_MAZ_tec.xml</ftec>
             <flai>null</flai>
         </plante>
         <plante dominance="2">
@@ -25,4 +24,1132 @@
             <flai>null</flai>
         </plante>
     </usm>
-</usms>
+         <usm nom="MACH0072_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0248085_MACH0072_1_ini.xml</finit>
+        <nomsol>TOA0248085</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0072_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0046_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230097_MACH0046_1_ini.xml</finit>
+        <nomsol>TOA0230097</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0046_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0060_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235076_MACH0060_1_ini.xml</finit>
+        <nomsol>TOA0235076</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0060_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0057_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0080076_MACH0057_1_ini.xml</finit>
+        <nomsol>TOA0080076</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0057_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0020_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235034_MACH0020_1_ini.xml</finit>
+        <nomsol>TOA0235034</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.2000</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0020_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0081_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0080076_MACH0081_1_ini.xml</finit>
+        <nomsol>TOA0080076</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0081_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0004_1">
+        <datedebut>255</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235024_MACH0004_1_ini.xml</finit>
+        <nomsol>TOA0235024</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.1999</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0004_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0050_1">
+        <datedebut>255</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230107_MACH0050_1_ini.xml</finit>
+        <nomsol>TOA0230107</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0050_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0075_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230097_MACH0075_1_ini.xml</finit>
+        <nomsol>TOA0230097</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0075_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0056_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0080076_MACH0056_1_ini.xml</finit>
+        <nomsol>TOA0080076</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0056_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0014_1">
+        <datedebut>195</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235044_MACH0014_1_ini.xml</finit>
+        <nomsol>TOA0235044</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.1999</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0014_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0255_1">
+        <datedebut>75</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235085_MACH0255_1_ini.xml</finit>
+        <nomsol>TOA0235085</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.1999</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0255_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0092_1">
+        <datedebut>255</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230066_MACH0092_1_ini.xml</finit>
+        <nomsol>TOA0230066</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0092_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0029_1">
+        <datedebut>75</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235033_MACH0029_1_ini.xml</finit>
+        <nomsol>TOA0235033</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.2000</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0029_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0069_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230066_MACH0069_1_ini.xml</finit>
+        <nomsol>TOA0230066</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0069_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0068_1">
+        <datedebut>255</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235076_MACH0068_1_ini.xml</finit>
+        <nomsol>TOA0235076</nomsol>
+        <fstation>MK13_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK13.1998</fclim1>
+                <fclim2>MK13.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0068_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0066_1">
+        <datedebut>255</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235076_MACH0066_1_ini.xml</finit>
+        <nomsol>TOA0235076</nomsol>
+        <fstation>MK13_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK13.1998</fclim1>
+                <fclim2>MK13.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0066_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0003_1">
+        <datedebut>15</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235024_MACH0003_1_ini.xml</finit>
+        <nomsol>TOA0235024</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.1999</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0003_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0038_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0248085_MACH0038_1_ini.xml</finit>
+        <nomsol>TOA0248085</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1997</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0038_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0040_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230107_MACH0040_1_ini.xml</finit>
+        <nomsol>TOA0230107</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1997</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0040_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0086_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230076_MACH0086_1_ini.xml</finit>
+        <nomsol>TOA0230076</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0086_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0012_1">
+        <datedebut>195</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235044_MACH0012_1_ini.xml</finit>
+        <nomsol>TOA0235044</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.1999</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0012_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0042_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230076_MACH0042_1_ini.xml</finit>
+        <nomsol>TOA0230076</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1997</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0042_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0023_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235033_MACH0023_1_ini.xml</finit>
+        <nomsol>TOA0235033</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.2000</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0023_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0013_1">
+        <datedebut>195</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235044_MACH0013_1_ini.xml</finit>
+        <nomsol>TOA0235044</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.1999</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0013_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0070_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230066_MACH0070_1_ini.xml</finit>
+        <nomsol>TOA0230066</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0070_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0058_1">
+        <datedebut>255</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0080076_MACH0058_1_ini.xml</finit>
+        <nomsol>TOA0080076</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0058_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0090_1">
+        <datedebut>255</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230066_MACH0090_1_ini.xml</finit>
+        <nomsol>TOA0230066</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0090_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0002_1">
+        <datedebut>255</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235063_MACH0002_1_ini.xml</finit>
+        <nomsol>TOA0235063</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.1999</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0002_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0063_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230076_MACH0063_1_ini.xml</finit>
+        <nomsol>TOA0230076</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0063_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0035_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230076_MACH0035_1_ini.xml</finit>
+        <nomsol>TOA0230076</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1997</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0035_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0356_1">
+        <datedebut>75</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235085_MACH0356_1_ini.xml</finit>
+        <nomsol>TOA0235085</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.1999</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0356_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0019_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235034_MACH0019_1_ini.xml</finit>
+        <nomsol>TOA0235034</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.2000</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0019_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0001_1">
+        <datedebut>75</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235063_MACH0001_1_ini.xml</finit>
+        <nomsol>TOA0235063</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.1999</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0001_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0030_1">
+        <datedebut>75</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235033_MACH0030_1_ini.xml</finit>
+        <nomsol>TOA0235033</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.2000</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0030_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0044_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230097_MACH0044_1_ini.xml</finit>
+        <nomsol>TOA0230097</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0044_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0062_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230076_MACH0062_1_ini.xml</finit>
+        <nomsol>TOA0230076</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0062_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0078_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230107_MACH0078_1_ini.xml</finit>
+        <nomsol>TOA0230107</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0078_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0036_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230076_MACH0036_1_ini.xml</finit>
+        <nomsol>TOA0230076</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1997</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0036_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0054_1">
+        <datedebut>255</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230107_MACH0054_1_ini.xml</finit>
+        <nomsol>TOA0230107</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0054_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0045_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230097_MACH0045_1_ini.xml</finit>
+        <nomsol>TOA0230097</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0045_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0256_1">
+        <datedebut>75</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235085_MACH0256_1_ini.xml</finit>
+        <nomsol>TOA0235085</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.1999</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0256_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0088_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230066_MACH0088_1_ini.xml</finit>
+        <nomsol>TOA0230066</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0088_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0073_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0248085_MACH0073_1_ini.xml</finit>
+        <nomsol>TOA0248085</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0073_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0049_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230107_MACH0049_1_ini.xml</finit>
+        <nomsol>TOA0230107</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0049_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0007_1">
+        <datedebut>75</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0235054_MACH0007_1_ini.xml</finit>
+        <nomsol>TOA0235054</nomsol>
+        <fstation>MK10_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK10.2000</fclim1>
+                <fclim2>MK10.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0007_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+         <usm nom="MACH0052_1">
+        <datedebut>45</datedebut>
+        <datefin>730</datefin>
+        <finit>TOA0230107_MACH0052_1_ini.xml</finit>
+        <nomsol>TOA0230107</nomsol>
+        <fstation>MK14_sta.xml</fstation>
+        <!-- loop on the total climate files -->
+                <fclim1>MK14.1998</fclim1>
+                <fclim2>MK14.2010</fclim2>
+                <!-- if the crop is on 1 year then culturean = 1 else 0 -->
+        <culturean>0</culturean>
+        <nbplantes>1</nbplantes>
+        <codesimul>0</codesimul>
+        <plante dominance="1">
+            <fplt>corn_plt.xml    </fplt>
+            <ftec>MACH0052_1_MAZ_tec.xml</ftec>
+            <flai>null</flai>
+        </plante>
+        <plante dominance="2">
+            <fplt>null</fplt>
+            <ftec>null</ftec>
+            <flai>null</flai>
+        </plante>
+    </usm>
+     </usms>

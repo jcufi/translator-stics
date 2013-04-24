@@ -29,8 +29,10 @@ public class SticsOutput implements TranslatorOutput {
 		SticsOutput sticsOut;
 		Map data;
 
+		//String dataFolder = new File(System.getProperty("user.dir")).getParent() + File.separator + "json-translation-samples" + File.separator;
 		String dataFolder = new File(System.getProperty("user.dir")).getParent() + File.separator + "json-translation-samples" + File.separator;
-		jsonFile = "/mach_fast.json";
+		//jsonFile = "/mach_fast.json";
+		jsonFile = "/Survey_data_import_baseline.json";
 		// jsonFile = "/hsc.json";
 		// jsonFile = "/new_version.json";
 		// jsonFile = dataFolder + "mach_fast.json";
