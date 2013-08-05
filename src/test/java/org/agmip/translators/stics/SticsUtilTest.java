@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.util.Map;
 
+import org.agmip.translators.stics.output.WeatherOutput;
 import org.agmip.translators.stics.util.SticsUtil;
 import org.agmip.util.JSONAdapter;
 import org.junit.Test;

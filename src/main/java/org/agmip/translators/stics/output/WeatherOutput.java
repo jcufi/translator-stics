@@ -1,4 +1,4 @@
-package org.agmip.translators.stics;
+package org.agmip.translators.stics.output;
 
 import static org.agmip.util.MapUtil.getValueOr;
 
@@ -24,23 +24,23 @@ import org.apache.velocity.context.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WeatherOutput implements TranslatorOutput {
+public class WeatherOutput extends SticsFileGenerator implements TranslatorOutput {
 	private static final Logger log = LoggerFactory.getLogger(WeatherOutput.class);
-	public static String WEATHER_DATA_SEPARATOR = " ";
-	public static String NEW_LINE = "\n";
-	public static int DATE_INDEX = 1;
-	public static String STATION_TEMPLATE_FILE = "/sta_template.vm";
+	public static final String WEATHER_DATA_SEPARATOR = " ";
+	public static final String NEW_LINE = "\n";
+	public static final int DATE_INDEX = 1;
+	public static final String STATION_TEMPLATE_FILE = "/sta_template.vm";
 
 	private BufferedWriter writer;
 	private String previousYear;
-	private HashMap<String, ArrayList<String>> weatherFilesById;
-	private HashMap<String, String> stationFilesById;
+	private Map<String, ArrayList<String>> weatherFilesById;
+	private Map<String, String> stationFilesById;
 
-	public HashMap<String, ArrayList<String>> getWeatherFilesById() {
+	public Map<String, ArrayList<String>> getWeatherFilesById() {
 		return weatherFilesById;
 	}
 
-	public HashMap<String, String> getStationFilesById() {
+	public Map<String, String> getStationFilesById() {
 		return stationFilesById;
 	}
 
@@ -52,15 +52,13 @@ public class WeatherOutput implements TranslatorOutput {
 	/**
 	 * Format one line of stics weather file
 	 * 
-	 * @param firstLevel
-	 *            first level parameters
-	 * @param weatherRecord
-	 *            data corresponding to a weather record
+	 * @param firstLevel first level parameters
+	 * @param weatherRecord data corresponding to a weather record
 	 * @return a line of stics weather file
 	 */
 	public String formatLine(String stationName, Map<String, String> weatherRecord) {
-		String[] params = new String[] { "w_date", "tmin", "tmax", "srad", "eoaa", "rain", "wind", "vprs", "co2d" };
-		List<String> requiresConvertion = Arrays.asList(new String[] { "wind", "vprs" });
+		String[] params = new String[] { "w_date", "tmin", "tmax", "srad", "eoaa", "rain", "wind", "vprsd", "co2d" };
+		List<String> requiresConvertion = Arrays.asList(new String[] { "wind", "vprsd" });
 		StringBuffer buffer = new StringBuffer();
 		SimpleDateFormat srcDateFormat;
 		SimpleDateFormat newDateFormat;
@@ -77,22 +75,22 @@ public class WeatherOutput implements TranslatorOutput {
 			separator = ((i == params.length - 1) ? "" : WEATHER_DATA_SEPARATOR);
 			paramValue = MapUtil.getObjectOr(weatherRecord, params[i], SticsUtil.defaultValue(params[i]));
 			if (requiresConvertion.contains(params[i]) && !SticsUtil.isDefaultValue(params[i], paramValue)) {
-				buffer.append((SticsUtil.convert(params[i], paramValue) + separator));
+				buffer.append((getConverter().convertToSticsUnit(params[i], paramValue) + separator));
 			} else if ("w_date".equals(params[i])) {
 				// First write date in stics format
 				srcDateFormat = new SimpleDateFormat("yyyyMMdd");
 				newDateFormat = new SimpleDateFormat("yyyy MM dd");
 				try {
 					dateResult = srcDateFormat.parse(paramValue);
-					buffer.append(newDateFormat.format(dateResult) + separator);
+					buffer.append(newDateFormat.format(dateResult)).append(separator);
 				} catch (Exception e) {
 					log.error(e.getMessage());
 				}
 				// Write julian day
 				julianDay = SticsUtil.getJulianDay(dateResult);
-				buffer.append(julianDay + separator);
+				buffer.append(julianDay).append(separator);
 			} else {
-				buffer.append((paramValue + separator));
+				buffer.append((paramValue)).append(separator);
 			}
 		}
 		// Return the line
@@ -100,15 +98,12 @@ public class WeatherOutput implements TranslatorOutput {
 	}
 
 	/**
-	 * Return a new LinkedList filled with values taken from the input
-	 * parameters
+	 * Return a new LinkedList filled with values taken from the input parameters
 	 * 
-	 * @param listOfDefaultList
-	 *            A list of list to merge
-	 * @return a new LinkedList filled with values taken from the input
-	 *         parameters
+	 * @param listOfDefaultList A list of list to merge
+	 * @return a new LinkedList filled with values taken from the input parameters
 	 */
-	public LinkedList<Map<String, Object>> mergeList(LinkedList<List<Map<String, Object>>> listOfDefaultList) {
+	public LinkedList<Map<String, Object>> mergeList(List<List<Map<String, Object>>> listOfDefaultList) {
 		// Merge all previous default values list
 		LinkedList<Map<String, Object>> mergedWeatherRecords;
 		mergedWeatherRecords = new LinkedList<Map<String, Object>>();
@@ -130,7 +125,7 @@ public class WeatherOutput implements TranslatorOutput {
 	private void newClimaticFile(String stationId, String fileName, String year) throws IOException {
 		File currentFile;
 		currentFile = new File(fileName);
-		log.info("Generating weather file : "+currentFile.getName());
+		log.info("Generating weather file : " + currentFile.getName());
 		weatherFilesById.get(stationId).add(currentFile.getName());
 		writer = new BufferedWriter(new FileWriter(currentFile));
 		previousYear = year;
@@ -175,12 +170,12 @@ public class WeatherOutput implements TranslatorOutput {
 	 */
 	public void writeFile(String filePath, Map data) {
 
-		HashMap<String, String> firstLevelStationParameters;
+		Map<String, String> firstLevelStationParameters;
 		String stationId;
 		String city;
 		String content;
 		Context context;
-		String refht, fl_lat, flele, anga, angb;
+		String refht, wst_lat, flele, anga, angb, wst_elev;
 		try {
 			/** 1 - Generate climatic files **/
 			// Extract weather values
@@ -198,20 +193,22 @@ public class WeatherOutput implements TranslatorOutput {
 				}
 				/** 2 - Generate station files **/
 				refht = getValueOr(weatherBucket.getValues(), "refht", SticsUtil.defaultValue("refht"));
-				fl_lat = getValueOr(data, "fl_lat", SticsUtil.defaultValue("fl_lat"));
+				wst_lat = getValueOr(weatherBucket.getValues(), "wst_lat", SticsUtil.defaultValue("wst_lat"));
+				wst_elev = getValueOr(weatherBucket.getValues(), "wst_elev", SticsUtil.defaultValue("wst_elev"));
 				flele = getValueOr(data, "flele", SticsUtil.defaultValue("flele"));
 				anga = getValueOr(data, "anga", SticsUtil.defaultValue("anga"));
 				angb = getValueOr(data, "angb", SticsUtil.defaultValue("angb"));
 				firstLevelStationParameters = new HashMap<String, String>();
 				firstLevelStationParameters.put("refht", refht);
-				firstLevelStationParameters.put("fl_lat", fl_lat);
+				firstLevelStationParameters.put("wst_lat", wst_lat);
 				firstLevelStationParameters.put("flele", flele);
+				firstLevelStationParameters.put("wst_elev", wst_elev);
 				firstLevelStationParameters.put("anga", anga);
 				firstLevelStationParameters.put("angb", angb);
 				context = VelocityUtil.fillVelocityContext(firstLevelStationParameters, null);
 				content = VelocityUtil.getInstance().runVelocity(context, STATION_TEMPLATE_FILE);
 				File stationFile = SticsUtil.newFile(content, filePath, city + "_sta.xml");
-				log.info("Generating station file : "+stationFile.getName());
+				log.info("Generating station file : " + stationFile.getName());
 				stationFilesById.put(stationId, stationFile.getName());
 			}
 		} catch (Exception e) {

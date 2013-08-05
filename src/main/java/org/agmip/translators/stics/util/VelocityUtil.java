@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -18,13 +19,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Util class for velocity. This class is a singleton to avoid recreating
- * VelocityEngine, all the templates are retrieved from the classpath.
+ * Util class for velocity. This class is a singleton to avoid recreating VelocityEngine, all the templates are
+ * retrieved from the classpath.
  * 
  * @author jucufi
  * 
  */
-public class VelocityUtil {
+public final class VelocityUtil {
 	private static VelocityUtil instance;
 	private static VelocityEngine engine;
 	private static final Logger log = LoggerFactory.getLogger(VelocityUtil.class);
@@ -62,15 +63,13 @@ public class VelocityUtil {
 				log.error("Example : Syntax error in template " + templateFile + ":" + pee);
 			}
 			BufferedWriter writer = new BufferedWriter(strWritter);
-			
 			if (template != null) {
 				template.merge(context, writer);
 			}
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
-			log.error("IO error during velocity generation");
-			log.error(e.toString());
+			log.error("IO error during velocity generation", e);
 		}
 
 		return strWritter.getBuffer().toString();
@@ -93,7 +92,7 @@ public class VelocityUtil {
 	 * @param nestedValues
 	 * @return
 	 */
-	public static VelocityContext fillVelocityContext(HashMap<String, String> firstLevelValues, List<HashMap<String, String>> nestedValues) {
+	public static VelocityContext fillVelocityContext(Map<String, String> firstLevelValues, List<HashMap<String, String>> nestedValues) {
 		VelocityContext context = newVelocitycontext();
 		context.put("listOfMaps", nestedValues);
 		context.put("firstLevelFields", firstLevelValues);

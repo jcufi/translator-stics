@@ -12,7 +12,7 @@
         <fclim$foreach.count>$climFileName</fclim$foreach.count>
         #end
         <!-- if the crop is on 1 year then culturean = 1 else 0 -->
-        <culturean>0</culturean>
+        <culturean>$exp.twoYearsCrop</culturean>
         <nbplantes>1</nbplantes>
         <codesimul>0</codesimul>
         <plante dominance="1">

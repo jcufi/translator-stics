@@ -1,10 +1,15 @@
-package org.agmip.translators.stics.util;
+package org.agmip.translators.stics.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import org.agmip.translators.stics.util.CropCycle;
+import org.agmip.translators.stics.util.IcasaCode;
 
 public class ExperimentInfo {
-	public static int YEAR = 365;
+	private static final int YEAR = 365;
+	private String latitude;
 	private String expId;
 	private String soilId;
 	private String weatherId;
@@ -12,8 +17,13 @@ public class ExperimentInfo {
 	private String icdat;
 	private int duration;
 	private Date startingDate;
+
 	public Date getStartingDate() {
 		return startingDate;
+	}
+
+	public String getTwoYearsCrop() {
+		return CropCycle.getCultureAn(cropId, latitude);
 	}
 
 	public void setStartingDate(Date startingDate) {
@@ -34,17 +44,17 @@ public class ExperimentInfo {
 		return IcasaCode.toSticsCode(cropId + PLANT_FILE_SUFFIX);
 	}
 
-	private ArrayList<String> weatherFiles;
+	private List<String> weatherFiles;
 
 	public ExperimentInfo() {
 		weatherFiles = new ArrayList<String>();
 	}
 
-	public ArrayList<String> getWeatherFiles() {
+	public List<String> getWeatherFiles() {
 		return weatherFiles;
 	}
 
-	public void setWeatherFiles(ArrayList<String> weatherFiles) {
+	public void setWeatherFiles(List<String> weatherFiles) {
 		this.weatherFiles = weatherFiles;
 	}
 
@@ -58,7 +68,7 @@ public class ExperimentInfo {
 
 	public String getEndDate() {
 		String endDate;
-		if (weatherFiles.size() > 1) {
+		if (CropCycle.isATwoYearsCrop(cropId, latitude)) {
 			endDate = String.valueOf(2 * YEAR);
 		} else {
 			endDate = String.valueOf(YEAR);
@@ -141,6 +151,14 @@ public class ExperimentInfo {
 
 	public void setWeatherId(String weatherId) {
 		this.weatherId = weatherId;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 
 }

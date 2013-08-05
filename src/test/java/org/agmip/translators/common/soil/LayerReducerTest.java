@@ -1,6 +1,7 @@
 package org.agmip.translators.common.soil;
 
 import static org.junit.Assert.assertEquals;
+import static org.agmip.translators.stics.util.Const.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,20 +9,15 @@ import java.util.HashMap;
 import org.agmip.translators.soil.LayerReducer;
 import org.agmip.translators.soil.LayerReducerUtil;
 import org.agmip.translators.soil.SAReducerDecorator;
-import org.agmip.translators.stics.SoilAndInitOutput;
+import org.agmip.translators.stics.output.SoilAndInitOutput;
 import org.junit.Test;
 
 public class LayerReducerTest {
-	static String SLLL = "slll";
-	static String SLDUL = "sldul";
-	static String SLBDM = "slbdm";
-	static String SKSAT = "sksat";
-	static String SLLB = "sllb";
-	static String ICH2O = "ich2o";
-	static String ICNO3 = "icno3";
-	static String ICNH4 = "icnh4";
 	LayerReducer tool;
 	SoilAndInitOutput soilConverter;
+	private static final String[] INIT_PARAM_TO_CONVERT = { ICNO3, ICNH4 };
+	private static final String[] SOIL_PARAM_TO_CONVERT = { SLDUL, SLLL, ICH2O };
+	private static final String[] SOIL_LAYER_PARAMS = new String[] { ICH2O, ICNO3, ICNH4, SLLB, SLDUL, SLBDM, SLLL };
 
 	public LayerReducerTest() {
 		SAReducerDecorator w = new SAReducerDecorator();
@@ -123,9 +119,10 @@ public class LayerReducerTest {
 		tool.setMaxSoilLayers(1);
 		ArrayList<HashMap<String, String>> res = LayerReducerUtil.computeSoilLayerSize(list);
 		ArrayList<HashMap<String, String>> result = tool.process(res);
-		System.out.println("sans chgt : "+result);
-		soilConverter.convertSoil(result);
-		soilConverter.convertInitValues(result);
+		System.out.println("sans chgt : " + result);
+
+		soilConverter.getConverter().convertSoil(result, SOIL_PARAM_TO_CONVERT);
+		soilConverter.getConverter().convertInitValues(result, INIT_PARAM_TO_CONVERT);
 		assertEquals(1, result.size());
 		System.out.println(result);
 		for (String key : expectedSoilResult1.keySet()) {
@@ -133,12 +130,12 @@ public class LayerReducerTest {
 			assertEquals(expectedSoilResult1.get(key), result.get(0).get(key));
 		}
 		tool.setMaxSoilLayers(5);
-		
+
 	}
 
 	@Test
 	public void testAggregation() {
-		String[] keys = new String[] { SLLB, SKSAT, SLLL, SLDUL, SLBDM};
+		String[] keys = new String[] { SLLB, SKSAT, SLLL, SLDUL, SLBDM };
 		HashMap<String, String> soil1 = new HashMap<String, String>();
 		HashMap<String, String> soil2 = new HashMap<String, String>();
 		HashMap<String, String> soil3 = new HashMap<String, String>();
@@ -201,8 +198,8 @@ public class LayerReducerTest {
 		ArrayList<HashMap<String, String>> res = LayerReducerUtil.computeSoilLayerSize(list);
 
 		ArrayList<HashMap<String, String>> result = tool.process(res);
-		soilConverter.convertSoil(result);
-		soilConverter.convertInitValues(result);
+		soilConverter.getConverter().convertSoil(result, SOIL_PARAM_TO_CONVERT);
+		soilConverter.getConverter().convertInitValues(result, INIT_PARAM_TO_CONVERT);
 		int i = 0;
 		for (HashMap<String, String> layer : result) {
 			i++;
@@ -270,8 +267,8 @@ public class LayerReducerTest {
 		list.add(soil2);
 		ArrayList<HashMap<String, String>> res = LayerReducerUtil.computeSoilLayerSize(list);
 		ArrayList<HashMap<String, String>> result = tool.process(res);
-		soilConverter.convertSoil(result);
-		soilConverter.convertInitValues(result);
+		soilConverter.getConverter().convertSoil(result, SOIL_PARAM_TO_CONVERT);
+		soilConverter.getConverter().convertInitValues(result, INIT_PARAM_TO_CONVERT);
 		int i = 0;
 		for (HashMap<String, String> layer : result) {
 			i++;

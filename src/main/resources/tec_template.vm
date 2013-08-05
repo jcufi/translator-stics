@@ -42,7 +42,7 @@
     </formalisme>
     
     <formalisme nom="sowing"> <!-- section "planting" -->
-        <param format="integer" max="731" min="1" nom="iplt0"> $planting.date</param>
+        <param format="integer" max="731" min="1" nom="iplt0">$planting.date</param>
         <param format="real" max="10.0" min="0.0" nom="profsem">$planting.pldp</param>
         <param format="real" max="2000.0" min="0.05" nom="densitesem">$planting.plpop</param>
         <param format="integer" max="200" min="0" nom="variete">1</param>
