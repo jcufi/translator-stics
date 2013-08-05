@@ -3,7 +3,7 @@
 	<formalisme nom="Weather station">
 		<param format="real" max="10.0" min="2.0" nom="zr">$firstLevelFields.refht</param>
 		<param format="real" max="10.0" min="0.0" nom="NH3ref">0.00000</param>
-		<param format="real" max="90.0" min="-90.0" nom="latitude">$firstLevelFields.fl_lat</param>
+		<param format="real" max="90.0" min="-90.0" nom="latitude">$firstLevelFields.wst_lat</param>
 		<param format="real" max="1200.0" min="800.0" nom="patm">1000.00000</param>
                 <param format="real" max="25.0" min="4.0" nom="aclim">20.000000</param>
 	</formalisme>
@@ -24,7 +24,7 @@
 		<option choix="1" nom="climate in altitude" nomParam="codaltitude">
 			<choix code="1" nom="no" />
 			<choix code="2" nom="yes">
-				<param format="real" max="2000.0" min="0.0" nom="altistation">$firstLevelFields.fl_lat</param>
+				<param format="real" max="2000.0" min="0.0" nom="altistation">$firstLevelFields.wst_elev</param>
 				<param format="real" max="2000.0" min="0.0" nom="altisimul">$firstLevelFields.flele</param>
 				<param format="real" max="3.0" min="0.1" nom="gradtn">-0.50000</param>
 				<param format="real" max="3.0" min="0.1" nom="gradtx">-0.55000</param>
