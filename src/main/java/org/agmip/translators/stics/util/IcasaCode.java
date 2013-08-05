@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Properties;
 
-import org.agmip.translators.stics.WeatherOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,14 +14,18 @@ import org.slf4j.LoggerFactory;
  * @author jucufi
  * 
  */
-public class IcasaCode {
+public final class IcasaCode {
+	private IcasaCode(){
+		// utility class hide constructor
+	}
+	
 	private static final Logger log = LoggerFactory.getLogger(IcasaCode.class);
-	private static String CODE_UNKNOWN = "code_unknown";
-	private static Properties codeMap;
-	private static HashMap<String, String> unknownIcasaCode = new HashMap<String, String>();
+	private static final String CODE_UNKNOWN = "code_unknown";
+	private static final Properties codeMap;
+	private static final HashMap<String, String> unknownIcasaCode = new HashMap<String, String>();
 	
 	static {
-		InputStream inputStream = WeatherOutput.class.getResourceAsStream("/code-mapping.properties");
+		InputStream inputStream = CropCycle.class.getResourceAsStream("/code-mapping.properties");
 		codeMap = new Properties();
 		try {
 			codeMap.load(inputStream);
@@ -37,7 +40,7 @@ public class IcasaCode {
 		log.debug("icasa code : "+icasaCode);
 		if (!codeMap.containsKey(icasaCode)) {
 			if(!unknownIcasaCode.containsKey(icasaCode)){
-				Report.addInfo("Unknown code : " + icasaCode+"\n");
+				Report.addInfo("Unknown icasa code : " + icasaCode+"\n");
 			}
 			unknownIcasaCode.put(icasaCode, icasaCode);
 			result = CODE_UNKNOWN;
