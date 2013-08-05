@@ -2,6 +2,7 @@ package org.agmip.translators.stics.util;
 
 import junit.framework.TestCase;
 
+import org.agmip.translators.stics.util.IcasaCode;
 import org.junit.Test;
 
 public class IcasaCodeTest extends TestCase {
